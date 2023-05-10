@@ -27,6 +27,7 @@
     <PackageReference Include="XamlNameReferenceGenerator" Version="1.3.4" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Assets\Image\" />
     <Folder Include="Models\SaveLoad\" />
   </ItemGroup>
 </Project>
