@@ -13,7 +13,7 @@ namespace LogicDiagram3000.Models.Converters
     {
         public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
-            return Avalonia.Thickness.Parse(((Point)value).ToString());
+            return Avalonia.Thickness.Parse(value.ToString());
         }
 
         public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)

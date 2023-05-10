@@ -8,5 +8,9 @@ namespace LogicDiagram3000.Models.logicChip
 {
     public class XorChip : ChipToIn
     {
+        public string? TupeChip
+        {
+            get => "TupeChip";
+        }
     }
 }

@@ -37,6 +37,7 @@
 		</Grid>
 		<Grid Width="{Binding $parent[Window].Width}" Grid.Row="1" ColumnDefinitions="0.2*,*,0.2*">
 			<ItemsControl Grid.Column="1"
+						  Items="{Binding CanvasList}"
 						  HorizontalAlignment="Stretch"
 						  VerticalAlignment="Stretch"
 						  PointerPressed="PointerPressedOnCanvas">
@@ -70,14 +71,10 @@
 				</ItemsControl.DataTemplates>
 			</ItemsControl>
 			
-			<ListBox Grid.Column="2">
+			<ListBox Grid.Column="2" Items="{Binding CanvasList}">
 				<ListBox.ItemTemplate>
 					<DataTemplate>
-						<Grid ColumnDefinitions="*,*">
-							<TextBlock Grid.Column="0" Text="{Binding Name}"/>
-							<Button Grid.Column="1" Content="Del" Command="{Binding $parent[Window].DataContext.DelItem}"
-									CommandParameter="{Binding}"/>
-						</Grid>
+						<TextBlock Text="{Binding TupeChip}"/>
 					</DataTemplate>
 				</ListBox.ItemTemplate>
 			</ListBox>

@@ -8,6 +8,9 @@ namespace LogicDiagram3000.Models.logicChip
 {
     public class OrChip : ChipToIn
     {
-
+        public string? TupeChip
+        {
+            get => "TupeChip";
+        }
     }
 }

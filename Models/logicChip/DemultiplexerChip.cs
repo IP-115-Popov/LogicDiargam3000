@@ -8,5 +8,9 @@ namespace LogicDiagram3000.Models.logicChip
 {
     public class DemultiplexerChip : ChipToIn
     {
+        public string? TupeChip
+        {
+            get => "TupeChip";
+        }
     }
 }
