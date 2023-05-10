@@ -3,7 +3,9 @@
         xmlns:vm="using:LogicDiagram3000.ViewModels"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-		xmlns:logic="clr-namespace:LogicDiagram3000.Views.logicScheme"
+		xmlns:logicV="clr-namespace:LogicDiagram3000.Views.logicScheme"
+		xmlns:conectors="clr-namespace:LogicDiagram3000.Models.Connectors"
+		xmlns:chip="clr-namespace:LogicDiagram3000.Models.logicChip"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
 		Width="800" Height="450"
         x:Class="LogicDiagram3000.Views.MainWindow"
@@ -32,6 +34,23 @@
 						<Canvas Name="canvas" Height="{Binding $parent[ItemsControl].Height}" Width="{Binding $parent[ItemsControl].Width}" Background="Aqua"/>
 					</ItemsPanelTemplate>
 				</ItemsControl.ItemsPanel>
+				<ItemsControl.DataTemplates>
+					<DataTemplate DataType="{x:Type chip:AndChip}">
+						<logicV:AndChipView Margin="{Binding Margin, Converter={StaticResource stringToThicknessConverter}}"/>
+					</DataTemplate>
+					<DataTemplate DataType="{x:Type chip:OrChip}">
+						<logicV:OrChipView Margin="{Binding Margin, Converter={StaticResource stringToThicknessConverter}}"/>
+					</DataTemplate>
+					<DataTemplate DataType="{x:Type chip:NotChip}">
+						<logicV:NotChipView Margin="{Binding Margin, Converter={StaticResource stringToThicknessConverter}}"/>
+					</DataTemplate>
+					<DataTemplate DataType="{x:Type chip:XorChip}">
+						<logicV:XorChipView Margin="{Binding Margin, Converter={StaticResource stringToThicknessConverter}}"/>
+					</DataTemplate>
+					<DataTemplate DataType="{x:Type chip:DemultiplexerChip}">
+						<logicV:DemultiplexerChipView Margin="{Binding Margin, Converter={StaticResource stringToThicknessConverter}}"/>
+					</DataTemplate>
+				</ItemsControl.DataTemplates>
 			</ItemsControl>
 			
 			<ListBox Grid.Column="2">
