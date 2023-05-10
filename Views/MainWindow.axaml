@@ -18,16 +18,19 @@
     </Design.DataContext>
 	<Window.Resources>
 		<conv:StringToThicknessConverter x:Key="stringToThicknessConverter"/>
+		<conv:PathToImageConverter x:Key="pathToImageConverter"/>
 	</Window.Resources>
 	<Grid RowDefinitions="0.1*,*" Height="{Binding $parent[Window].Height}" ShowGridLines="True"	>
-		<Menu Grid.Row="0">
-			<MenuItem Header="Меню">
-				<MenuItem Header="Создать"/>
-				<MenuItem Header="Открыть"/>
-				<MenuItem Header="Сохранить"/>
-				<MenuItem Header="Выйти"/>
-			</MenuItem>
-		</Menu>
+		<Grid Grid.Row="0" ColumnDefinitions="*,*,*,*,*,*">
+			<Menu Grid.Column="0">
+				<MenuItem Header="Меню">
+					<MenuItem Header="Создать"/>
+					<MenuItem Header="Открыть"/>
+					<MenuItem Header="Сохранить"/>
+					<MenuItem Header="Выйти"/>
+				</MenuItem>
+			</Menu>
+		</Grid>
 		<Grid Width="{Binding $parent[Window].Width}" Grid.Row="1" ColumnDefinitions="0.2*,*,0.2*">
 			<ItemsControl Grid.Column="1"
 						  HorizontalAlignment="Stretch"
