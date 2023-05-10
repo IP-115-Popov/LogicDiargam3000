@@ -29,11 +29,21 @@
 					<MenuItem Header="Выйти"/>
 				</MenuItem>
 			</Menu>
-			<Image Grid.Column="1" HorizontalAlignment="Left" Source="/Assets/Image/And.png"/>
-			<Image Grid.Column="2" HorizontalAlignment="Left" Source="/Assets/Image/Or.png"/>
-			<Image Grid.Column="3" HorizontalAlignment="Left" Source="/Assets/Image/Not.png"/>
-			<Image Grid.Column="4" HorizontalAlignment="Left" Source="/Assets/Image/Xor.png"/>
-			<Image Grid.Column="5" HorizontalAlignment="Left" Source="/Assets/Image/Demultiplexer.png"/>
+			<RadioButton Grid.Column="1" GroupName="Chip" IsChecked="{Binding AddChipDraw}">
+				<Image HorizontalAlignment="Left" Source="/Assets/Image/And.png"/>
+			</RadioButton>
+			<RadioButton Grid.Column="2" GroupName="Chip" IsChecked="{Binding OrChipDraw}">
+				<Image HorizontalAlignment="Left" Source="/Assets/Image/Or.png"/>
+			</RadioButton>
+			<RadioButton Grid.Column="3" GroupName="Chip" IsChecked="{Binding NotChipDraw}">
+				<Image HorizontalAlignment="Left" Source="/Assets/Image/Not.png"/>
+			</RadioButton>
+			<RadioButton Grid.Column="4" GroupName="Chip" IsChecked="{Binding XorChipDraw}">
+				<Image HorizontalAlignment="Left" Source="/Assets/Image/Xor.png"/>
+			</RadioButton>
+			<RadioButton Grid.Column="5" GroupName="Chip" IsChecked="{Binding DemultiplexerChipDraw}">
+				<Image HorizontalAlignment="Left" Source="/Assets/Image/Demultiplexer.png"/>
+			</RadioButton>
 		</Grid>
 		<Grid Width="{Binding $parent[Window].Width}" Grid.Row="1" ColumnDefinitions="0.2*,*,0.2*">
 			<ItemsControl Grid.Column="1"
