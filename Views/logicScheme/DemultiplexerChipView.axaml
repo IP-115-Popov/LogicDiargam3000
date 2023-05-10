@@ -1,0 +1,25 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:controls="using:LogicDiagram3000.Views.logicScheme">
+  <Design.PreviewWith>
+    <controls:DemultiplexerChipView />
+  </Design.PreviewWith>
+
+  <Style Selector="controls|DemultiplexerChipView">
+    <!-- Set Defaults -->
+    <Setter Property="Template">
+      <ControlTemplate>
+		  <Canvas Height="210" Width="110" Background="Transparent">
+			  <Rectangle Height="200" Width="100" Margin="5,5" Stroke="Black" StrokeThickness="2"/>
+			  <Ellipse Width="15" Height="15" Margin="97,35" Fill="DarkGreen" StrokeThickness="3" Classes="In"/>		  
+			  <Ellipse Width="15" Height="15" Margin="97,100" Fill="DarkGreen" StrokeThickness="3" Classes="In"/>
+			  <Ellipse Width="15" Height="15" Margin="97,160" Fill="DarkGreen" StrokeThickness="3" Classes="In"/>
+			  
+			  <Ellipse Width="15" Height="15" Margin="50,197" Fill="DarkGreen" StrokeThickness="3" Classes="Manager"/>
+			  
+			  <Ellipse Width="15" Height="15" Margin="-2,100" Fill="DarkGreen" StrokeThickness="3" Classes="Out"/>
+		  </Canvas>
+      </ControlTemplate>
+    </Setter>
+  </Style>
+</Styles>

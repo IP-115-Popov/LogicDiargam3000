@@ -8,5 +8,10 @@
 
     <Application.Styles>
         <FluentTheme Mode="Light"/>
+		<StyleInclude Source="/Views/logicScheme/AndChipView.axaml"/>
+		<StyleInclude Source="/Views/logicScheme/OrChipView.axaml"/>
+		<StyleInclude Source="/Views/logicScheme/NotChipView.axaml"/>
+		<StyleInclude Source="/Views/logicScheme/XorChipView.axaml"/>
+		<StyleInclude Source="/Views/logicScheme/DemultiplexerChipView.axaml"/>
     </Application.Styles>
 </Application>

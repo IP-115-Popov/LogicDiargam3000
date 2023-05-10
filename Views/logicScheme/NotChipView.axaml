@@ -1,0 +1,21 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:controls="using:LogicDiagram3000.Views.logicScheme">
+  <Design.PreviewWith>
+    <controls:NotChipView />
+  </Design.PreviewWith>
+
+  <Style Selector="controls|NotChipView">
+    <!-- Set Defaults -->
+    <Setter Property="Template">
+      <ControlTemplate>
+		  <Canvas Height="110" Width="160" Background="Transparent">
+			  <Path Data="M 5,5 155,57 5,105 Z" Fill="White" StrokeThickness="2" Stroke="Black"/>
+			  <Ellipse Width="15" Height="15" Margin="-2,25" Fill="DarkGreen" StrokeThickness="3" Classes="In"/>
+			  <Ellipse Width="15" Height="15" Margin="147,50" Fill="DarkGreen" StrokeThickness="3" Classes="Out"/>
+			  <Ellipse Width="15" Height="15" Margin="-2,70" Fill="DarkGreen" StrokeThickness="3" Classes="In"/>
+		  </Canvas>
+      </ControlTemplate>
+    </Setter>
+  </Style>
+</Styles>
