@@ -52,6 +52,18 @@ namespace LogicDiagram3000.Views
                         this.PointerReleased += PointerReleasedDragShape;
                     }
                 }
+                else if (control is Canvas)
+                {
+                    pointerPressedEvent = pointerPressedEventArgs
+                        .GetPosition(
+                        this.GetVisualDescendants()
+                        .OfType<Canvas>()
+                        .FirstOrDefault());
+                    if (this.DataContext is MainWindowViewModel viewModel)
+                    {
+                        viewModel.AddChipOnCanvas(pointerPressedEvent);
+                    }
+                }
             }
         }
         private void PointerMoveDragShape(object? sender, PointerEventArgs pointerEventArgs)

@@ -10,7 +10,7 @@ namespace LogicDiagram3000.Models.logicChip
     {
         public string? TupeChip
         {
-            get => "TupeChip";
+            get => "NotChip";
         }
     }
 }

@@ -1,3 +1,4 @@
+using Avalonia;
 using LogicDiagram3000.Models.logicChip;
 using ReactiveUI;
 using System;
@@ -55,6 +56,39 @@ namespace LogicDiagram3000.ViewModels
             get => demultiplexerChipDraw;
             set => this.RaiseAndSetIfChanged(ref demultiplexerChipDraw, value);
         }
-
+        public void AddChipOnCanvas(Point A)
+        {
+            string AStrting = A.ToString();
+            if (AddChipDraw) CanvasList.Add(new AndChip()
+            {
+                Margin = AStrting,
+                Height = 128,
+                Width = 128,
+            });
+            if (OrChipDraw) CanvasList.Add(new OrChip()
+            {
+                Margin = AStrting,
+                Height = 128,
+                Width = 128,
+            });
+            if (NotChipDraw) CanvasList.Add(new NotChip()
+            {
+                Margin = AStrting,
+                Height = 128,
+                Width = 128,
+            });
+            if (XorChipDraw) CanvasList.Add(new XorChip()
+            {
+                Margin = AStrting,
+                Height = 128,
+                Width = 128,
+            });
+            if (DemultiplexerChipDraw) CanvasList.Add(new DemultiplexerChip()
+            {
+                Margin = AStrting,
+                Height = 128,
+                Width = 128,
+            });
+        }
     }
 }
