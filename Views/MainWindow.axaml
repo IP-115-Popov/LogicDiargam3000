@@ -6,6 +6,7 @@
 		xmlns:logicV="clr-namespace:LogicDiagram3000.Views.logicScheme"
 		xmlns:conectors="clr-namespace:LogicDiagram3000.Models.Connectors"
 		xmlns:chip="clr-namespace:LogicDiagram3000.Models.logicChip"
+		xmlns:conv="clr-namespace:LogicDiagram3000.Models.Converters"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
 		Width="800" Height="450"
         x:Class="LogicDiagram3000.Views.MainWindow"
@@ -15,7 +16,9 @@
     <Design.DataContext>
         <vm:MainWindowViewModel/>
     </Design.DataContext>
-
+	<Window.Resources>
+		<conv:StringToThicknessConverter x:Key="stringToThicknessConverter"/>
+	</Window.Resources>
 	<Grid RowDefinitions="0.1*,*" Height="{Binding $parent[Window].Height}" ShowGridLines="True"	>
 		<Menu Grid.Row="0">
 			<MenuItem Header="Меню">
@@ -49,6 +52,13 @@
 					</DataTemplate>
 					<DataTemplate DataType="{x:Type chip:DemultiplexerChip}">
 						<logicV:DemultiplexerChipView Margin="{Binding Margin, Converter={StaticResource stringToThicknessConverter}}"/>
+					</DataTemplate>
+					<DataTemplate DataType="{x:Type conectors:Connector}">
+						<Line StartPoint="{Binding StartPoint}"
+							  EndPoint="{Binding EndPoint}"
+							  StrokeThickness="3"
+							  Stroke="Yellow"
+							  />
 					</DataTemplate>
 				</ItemsControl.DataTemplates>
 			</ItemsControl>
