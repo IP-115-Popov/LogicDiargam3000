@@ -31,7 +31,8 @@
 		<Grid Width="{Binding $parent[Window].Width}" Grid.Row="1" ColumnDefinitions="0.2*,*,0.2*">
 			<ItemsControl Grid.Column="1"
 						  HorizontalAlignment="Stretch"
-						  VerticalAlignment="Stretch">
+						  VerticalAlignment="Stretch"
+						  PointerPressed="PointerPressedOnCanvas">
 				<ItemsControl.ItemsPanel>
 					<ItemsPanelTemplate>
 						<Canvas Name="canvas" Height="{Binding $parent[ItemsControl].Height}" Width="{Binding $parent[ItemsControl].Width}" Background="Aqua"/>
@@ -57,8 +58,7 @@
 						<Line StartPoint="{Binding StartPoint}"
 							  EndPoint="{Binding EndPoint}"
 							  StrokeThickness="3"
-							  Stroke="Yellow"
-							  />
+							  Stroke="Yellow"/>
 					</DataTemplate>
 				</ItemsControl.DataTemplates>
 			</ItemsControl>
