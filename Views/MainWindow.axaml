@@ -20,7 +20,7 @@
 		<conv:StringToThicknessConverter x:Key="stringToThicknessConverter"/>
 	</Window.Resources>
 	<Grid RowDefinitions="0.1*,*" Height="{Binding $parent[Window].Height}" ShowGridLines="True"	>
-		<Grid Width="{Binding $parent[Window].Width}" Grid.Row="0" ColumnDefinitions="*,*,*,*,*,*,*">
+		<Grid Width="{Binding $parent[Window].Width}" Grid.Row="0" ColumnDefinitions="*,*,*,*,*,*,*,*,*">
 			<Menu Grid.Column="0">
 				<MenuItem Header="Меню">
 					<MenuItem Header="Создать"/>
@@ -29,20 +29,26 @@
 					<MenuItem Header="Выйти"/>
 				</MenuItem>
 			</Menu>
-			<RadioButton Grid.Column="1" GroupName="Chip" IsChecked="{Binding AddChipDraw}">
+			<RadioButton Grid.Column="1" GroupName="Chip" IsChecked="{Binding InChipDraw}">
+				<Image HorizontalAlignment="Left" Source="/Assets/Image/In.png"/>
+			</RadioButton>
+			<RadioButton Grid.Column="2" GroupName="Chip" IsChecked="{Binding AddChipDraw}">
 				<Image HorizontalAlignment="Left" Source="/Assets/Image/And.png"/>
 			</RadioButton>
-			<RadioButton Grid.Column="2" GroupName="Chip" IsChecked="{Binding OrChipDraw}">
+			<RadioButton Grid.Column="3" GroupName="Chip" IsChecked="{Binding OrChipDraw}">
 				<Image HorizontalAlignment="Left" Source="/Assets/Image/Or.png"/>
 			</RadioButton>
-			<RadioButton Grid.Column="3" GroupName="Chip" IsChecked="{Binding NotChipDraw}">
+			<RadioButton Grid.Column="4" GroupName="Chip" IsChecked="{Binding NotChipDraw}">
 				<Image HorizontalAlignment="Left" Source="/Assets/Image/Not.png"/>
 			</RadioButton>
-			<RadioButton Grid.Column="4" GroupName="Chip" IsChecked="{Binding XorChipDraw}">
+			<RadioButton Grid.Column="5" GroupName="Chip" IsChecked="{Binding XorChipDraw}">
 				<Image HorizontalAlignment="Left" Source="/Assets/Image/Xor.png"/>
 			</RadioButton>
-			<RadioButton Grid.Column="5" GroupName="Chip" IsChecked="{Binding DemultiplexerChipDraw}">
+			<RadioButton Grid.Column="6" GroupName="Chip" IsChecked="{Binding DemultiplexerChipDraw}">
 				<Image HorizontalAlignment="Left" Source="/Assets/Image/Demultiplexer.png"/>
+			</RadioButton>
+			<RadioButton Grid.Column="7" GroupName="Chip" IsChecked="{Binding IndicatorChipDraw}">
+				<Image HorizontalAlignment="Left" Source="/Assets/Image/Indicator.png"/>
 			</RadioButton>
 		</Grid>
 		<Grid Width="{Binding $parent[Window].Width}" Grid.Row="1" ColumnDefinitions="0.2*,*,0.2*">
@@ -71,6 +77,14 @@
 					</DataTemplate>
 					<DataTemplate DataType="{x:Type chip:DemultiplexerChip}">
 						<logicV:DemultiplexerChipView Margin="{Binding Margin, Converter={StaticResource stringToThicknessConverter}}"/>
+					</DataTemplate>
+
+
+					<DataTemplate DataType="{x:Type chip:InChip}">
+						<logicV:InChipView Margin="{Binding Margin, Converter={StaticResource stringToThicknessConverter}}"/>
+					</DataTemplate>
+					<DataTemplate DataType="{x:Type chip:IndicatorChip}">
+						<logicV:IndicatorChipView Margin="{Binding Margin, Converter={StaticResource stringToThicknessConverter}}"/>
 					</DataTemplate>
 					<DataTemplate DataType="{x:Type conectors:Connector}">
 						<Line StartPoint="{Binding StartPoint}"

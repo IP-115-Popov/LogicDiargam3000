@@ -15,6 +15,8 @@ namespace LogicDiagram3000.ViewModels
         private bool notChipDraw;
         private bool xorChipDraw;
         private bool demultiplexerChipDraw;
+        private bool inChipDraw;
+        private bool indicatorChipDraw;
         private ObservableCollection<object> canvasList;
         public MainWindowViewModel()
         {
@@ -56,6 +58,16 @@ namespace LogicDiagram3000.ViewModels
             get => demultiplexerChipDraw;
             set => this.RaiseAndSetIfChanged(ref demultiplexerChipDraw, value);
         }
+        private bool InChipDraw
+        {
+            get => inChipDraw;
+            set => this.RaiseAndSetIfChanged(ref inChipDraw, value);
+        }
+        private bool IndicatorChipDraw
+        {
+            get => indicatorChipDraw;
+            set => this.RaiseAndSetIfChanged(ref indicatorChipDraw, value);
+        }
         public void AddChipOnCanvas(Point A)
         {
             string AStrting = A.ToString();
@@ -65,25 +77,37 @@ namespace LogicDiagram3000.ViewModels
                 Height = 128,
                 Width = 128,
             });
-            if (OrChipDraw) CanvasList.Add(new OrChip()
+            else if (OrChipDraw) CanvasList.Add(new OrChip()
             {
                 Margin = AStrting,
                 Height = 128,
                 Width = 128,
             });
-            if (NotChipDraw) CanvasList.Add(new NotChip()
+            else if (NotChipDraw) CanvasList.Add(new NotChip()
             {
                 Margin = AStrting,
                 Height = 128,
                 Width = 128,
             });
-            if (XorChipDraw) CanvasList.Add(new XorChip()
+            else if (XorChipDraw) CanvasList.Add(new XorChip()
             {
                 Margin = AStrting,
                 Height = 128,
                 Width = 128,
             });
-            if (DemultiplexerChipDraw) CanvasList.Add(new DemultiplexerChip()
+            else if (DemultiplexerChipDraw) CanvasList.Add(new DemultiplexerChip()
+            {
+                Margin = AStrting,
+                Height = 128,
+                Width = 128,
+            });
+            else if (InChipDraw) CanvasList.Add(new InChip()
+            {
+                Margin = AStrting,
+                Height = 128,
+                Width = 128,
+            });
+            else if (IndicatorChipDraw) CanvasList.Add(new IndicatorChip()
             {
                 Margin = AStrting,
                 Height = 128,
