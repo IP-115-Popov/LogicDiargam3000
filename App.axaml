@@ -13,5 +13,7 @@
 		<StyleInclude Source="/Views/logicScheme/NotChipView.axaml"/>
 		<StyleInclude Source="/Views/logicScheme/XorChipView.axaml"/>
 		<StyleInclude Source="/Views/logicScheme/DemultiplexerChipView.axaml"/>
+		<StyleInclude Source="/Views/logicScheme/InChipView.axaml"/>
+		<StyleInclude Source="/Views/logicScheme/IndicatorChipView.axaml"/>
     </Application.Styles>
 </Application>
