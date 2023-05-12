@@ -11,7 +11,7 @@ namespace LogicDiagram3000.Models.logicChip
         private string isSignalTrue;
         public InChip()
         {
-            IsSignalTrue = "0";
+            IsSignalTrue = "";
         }
         public string? TupeChip
         {
@@ -23,9 +23,8 @@ namespace LogicDiagram3000.Models.logicChip
             get => isSignalTrue;
             set
             {
-                  if (isSignalTrue != "") In1Signal(Convert.ToInt32(isSignalTrue));
-            //    //(base.OutSignalHandlerNotify)?.Invoke(Convert.ToInt32(IsSignalTrue));
-                SetAndRaise(ref isSignalTrue, value);              
+                SetAndRaise(ref isSignalTrue, value);
+                if (isSignalTrue != "") In1Signal(Convert.ToInt32(isSignalTrue));                         
             }
         }
     }
