@@ -36,5 +36,15 @@ namespace LogicDiagram3000.Models.Connectors
         {
             this.EndPoint += dPoint;
         }
+        //signal transmission
+        protected int in1Signal;
+        public void In1Signal(int value)
+        {
+            in1Signal = value;
+            OutSignalHandlerNotify?.Invoke(OutSignal());
+        }
+        protected virtual int OutSignal() => in1Signal;
+        public delegate void OutSignalHandler(int a);
+        public event OutSignalHandler? OutSignalHandlerNotify;
     }
 }

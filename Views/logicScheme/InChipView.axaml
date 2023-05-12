@@ -12,9 +12,9 @@
 			<Canvas Height="110" Width="110" Background="Transparent">
 				<Rectangle Height="100" Width="100" Margin="5,5" Stroke="Black" StrokeThickness="2"/>
 				<Ellipse Width="15" Height="15" Margin="97,50" Fill="DarkGreen" StrokeThickness="3" Classes="In"/>
-				<Panel Margin="18,43">
-				    <ToggleButton IsChecked="{TemplateBinding InChesk}" Content="Питание"/>
-				</Panel>
+				<!--<Panel Margin="18,43">
+					<TextBox Text="{TemplateBinding InChesk}"/>
+				</Panel>-->
 			</Canvas>
       </ControlTemplate>
     </Setter>

@@ -1,8 +1,5 @@
 using Avalonia;
-using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
-using ReactiveUI;
-using System.Reactive;
 
 namespace LogicDiagram3000.Views.logicScheme
 {

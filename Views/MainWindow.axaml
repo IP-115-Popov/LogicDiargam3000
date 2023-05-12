@@ -78,13 +78,16 @@
 					<DataTemplate DataType="{x:Type chip:DemultiplexerChip}">
 						<logicV:DemultiplexerChipView Margin="{Binding Margin, Converter={StaticResource stringToThicknessConverter}}"/>
 					</DataTemplate>
-
-
 					<DataTemplate DataType="{x:Type chip:InChip}">
-						<logicV:InChipView Margin="{Binding Margin, Converter={StaticResource stringToThicknessConverter}}"/>
+						<Panel>
+							<logicV:InChipView Margin="{Binding Margin, Converter={StaticResource stringToThicknessConverter}}"/>
+							<Panel Height="50" Width="50">
+								<TextBox Text="{Binding IsSignalTrue}"/>
+							</Panel>
+						</Panel>
 					</DataTemplate>
 					<DataTemplate DataType="{x:Type chip:IndicatorChip}">
-						<logicV:IndicatorChipView Margin="{Binding Margin, Converter={StaticResource stringToThicknessConverter}}"/>
+						<logicV:IndicatorChipView IndicatorChesk="{Binding In1SignalProperty}" Margin="{Binding Margin, Converter={StaticResource stringToThicknessConverter}}"/>
 					</DataTemplate>
 					<DataTemplate DataType="{x:Type conectors:Connector}">
 						<Line StartPoint="{Binding StartPoint}"

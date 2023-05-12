@@ -39,6 +39,10 @@ namespace LogicDiagram3000.Views
                             };
                             if (conector != null)
                             {
+                                //к выходу  чипа а присоедин€ю вход конектора
+                                chipToIn.OutSignalHandlerNotify += conector.In1Signal;
+
+
                                 chipToIn.MarginHandlerNotify += conector.ChangeStartPoint;
                                 viewModel.CanvasList.Add(conector);
                                 this.PointerMoved += PointerMoveDrawLine;
@@ -124,6 +128,17 @@ namespace LogicDiagram3000.Views
                 {
                     Connector connector = viewModel.CanvasList[viewModel.CanvasList.Count - 1] as Connector;
                     chipToIn.MarginHandlerNotify += connector.ChangeEndPoint;
+                    //к выходу конектора присоедин€ю вход чипа 
+                    if (chipToIn.port1free)
+                    {
+                        connector.OutSignalHandlerNotify += chipToIn.In1Signal;
+                        chipToIn.port1free = false;
+                    }
+                    else if (chipToIn.port2free)
+                    { 
+                        connector.OutSignalHandlerNotify += chipToIn.In2Signal;
+                        chipToIn.port2free = false;
+                    }
                     return;
                 }
             }
