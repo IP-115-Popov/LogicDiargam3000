@@ -21,7 +21,13 @@
 	<Window.Resources>
 		<conv:StringToThicknessConverter x:Key="stringToThicknessConverter"/>
 	</Window.Resources>
-	<Grid RowDefinitions="0.1*,*" Height="{Binding $parent[Window].Height}" ShowGridLines="True">
+	<Panel>
+	<Grid RowDefinitions="*,*,*" IsVisible="{Binding IsVisibleHelloView}">
+		<Button HorizontalAlignment="Center" Grid.Row="0" Content="Создать" Click="CreateProject"/>
+		<Button HorizontalAlignment="Center" Grid.Row="1" Content="Открыть" Click="LoadXml"/>
+		<Button HorizontalAlignment="Center" Grid.Row="2" Content="Выйти" Click="Exit"/>
+	</Grid>
+	<Grid RowDefinitions="0.1*,*" Height="{Binding $parent[Window].Height}" ShowGridLines="True" IsVisible="{Binding IsVisibleProjectView}">
 		<Grid Width="{Binding $parent[Window].Width}" Grid.Row="0" ColumnDefinitions="*,*,*,*,*,*,*,*,*,*">
 			<Menu Grid.Column="0">
 				<MenuItem Header="Меню">
@@ -127,5 +133,5 @@
 			</ListBox>
 		</Grid>
 	</Grid>
-
+	</Panel>
 </Window>

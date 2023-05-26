@@ -23,9 +23,12 @@ namespace LogicDiagram3000.ViewModels
         private ObservableCollection<object> canvasList;
         private ObservableCollection<Scheme> schemeList;
         private Scheme editableScheme;
-        private object contentWindow;
+        private bool isVisibleHelloView;
+        private bool isVisibleProjectView;
         public MainWindowViewModel()
         {
+            IsVisibleHelloView = true;
+            IsVisibleProjectView = false;
             SchemeList = new ObservableCollection<Scheme>();
             EditableScheme = new Scheme();
             EditableScheme.CanvasList.Add(
@@ -42,10 +45,15 @@ namespace LogicDiagram3000.ViewModels
             CanvasList = new ObservableCollection<object>();
             CanvasList = EditableScheme.CanvasList;
         }
-        public object ContentWindow
+        public bool IsVisibleHelloView
         {
-            get => contentWindow;
-            set => this.RaiseAndSetIfChanged(ref contentWindow, value);
+            get => isVisibleHelloView;
+            set => this.RaiseAndSetIfChanged(ref isVisibleHelloView, value);
+        }
+        public bool IsVisibleProjectView
+        {
+            get => isVisibleProjectView;
+            set => this.RaiseAndSetIfChanged(ref isVisibleProjectView, value);
         }
         public ObservableCollection<Scheme> SchemeList
         {

@@ -19,6 +19,14 @@ namespace LogicDiagram3000.Views
             InitializeComponent();
         }
         //Menu
+        private void CreateProject(object sender, RoutedEventArgs eventArgs)
+        {
+            if (this.DataContext is MainWindowViewModel viewModel)
+            {
+                viewModel.IsVisibleHelloView = false; 
+                viewModel.IsVisibleProjectView = true;
+            }
+        }
         private void CreateSchame(object sender, RoutedEventArgs eventArgs)
         {
             if (this.DataContext is MainWindowViewModel viewModel)
