@@ -72,7 +72,7 @@ namespace LogicDiagram3000.Views
         }
         private void Exit(object sender, RoutedEventArgs eventArgs)
         {
-
+            this.Close();
         }
         private void MyKeyDown(object sender, KeyEventArgs e)
         {
