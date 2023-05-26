@@ -1,4 +1,5 @@
 ﻿using DynamicData.Binding;
+using LogicDiagram3000.Models.Connectors;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -8,19 +9,30 @@ using System.Threading.Tasks;
 
 namespace LogicDiagram3000.Models.logicChip
 {
-    public abstract class ChipToIn : AbstractNotifyPropertyChanged
+    public abstract class ChipToIn : AbstractNotifyPropertyChanged, IDisposable
     {
-        public bool port1free;
-        public bool port2free;
+        //new Lojic 
+        //protected object tiedToOut1Chip;
+        //protected object tiedToIn1Chip;
+        //protected object tiedToIn2Chip;
+        public Connector TiedToOut1Chip { get; set; }
+        public Connector TiedToIn1Chip { get; set; }
+        public Connector TiedToIn2Chip { get; set; }
+        public int In1 { get; set; }
+        public int In2 { get; set; }
+        public void Out1()
+        {
+            TiedToOut1Chip.In1 = 1;
+        }
+        //
         protected bool isFocused;
         protected string? margin;
         protected string? oldMargin;
         protected int width;
         protected int height;
+
         public ChipToIn()
         {
-            port1free = true;
-            port2free = true;
             In1SignalProperty = 0;
             In1SignalProperty = 0;
         }
@@ -61,6 +73,10 @@ namespace LogicDiagram3000.Models.logicChip
         //signal transmission
         protected int in1Signal;
         protected int in2Signal;
+        public void Dispose()
+        {
+            OutSignalHandlerNotify = null;
+        }
         public void In1Signal(int value)
         {
             In1SignalProperty = value;

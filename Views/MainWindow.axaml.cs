@@ -80,18 +80,20 @@ namespace LogicDiagram3000.Views
             {
                 if (this.DataContext is MainWindowViewModel viewModel)
                 {
-                    foreach (var i in viewModel.CanvasList)
+                    for (int i = 0; i < viewModel.CanvasList.Count; i++)
                     {
-                        if (i is ChipToIn)
-                            if (((ChipToIn)i).IsFocused == true)
+                        if (viewModel.CanvasList[i] is ChipToIn chipToIn)
+                            if (chipToIn.IsFocused == true)
                             {
-                                viewModel.CanvasList.Remove(i);
+                                viewModel.CanvasList.RemoveAt(i);
+                                chipToIn = null;
                                 break;
                             }
-                        if (i is Connector)
-                            if (((Connector)i).IsFocused == true)
+                        if (viewModel.CanvasList[i] is Connector connector)
+                            if (connector.IsFocused == true)
                             {
                                 viewModel.CanvasList.Remove(i);
+                                chipToIn = null;
                                 break;
                             }
                     }
@@ -111,7 +113,7 @@ namespace LogicDiagram3000.Views
                         this.GetVisualDescendants()
                         .OfType<Canvas>()
                         .FirstOrDefault());
-                    if (pointerPressedEventArgs.Source is Ellipse)
+                    if (pointerPressedEventArgs.Source is Ellipse ellipse)
                     {
                         if (this.DataContext is MainWindowViewModel viewModel)
                         {
@@ -123,9 +125,18 @@ namespace LogicDiagram3000.Views
                             };
                             if (conector != null)
                             {
-                                //� ������  ���� � ����������� ���� ���������
-                                chipToIn.OutSignalHandlerNotify += conector.In1Signal;
-
+                                //if (chipToIn is DemultiplexerChip)
+                                //{
+                                //    if (ellipse.Name == "Out1") ((DemultiplexerChip)chipToIn).Out1SignalHandlerNotify += conector.In1Signal;
+                                //    else if (ellipse.Name == "Out2") ((DemultiplexerChip)chipToIn).Out2SignalHandlerNotify += conector.In1Signal;
+                                //}
+                                //else 
+                                if (ellipse.Name == "Out1")
+                                {
+                                    chipToIn.TiedToOut1Chip = conector;
+                                    conector.TiedToIn1Chip = chipToIn;
+                                }
+                                
 
                                 chipToIn.MarginHandlerNotify += conector.ChangeStartPoint;
                                 viewModel.CanvasList.Add(conector);
@@ -212,17 +223,32 @@ namespace LogicDiagram3000.Views
                 {
                     Connector connector = viewModel.CanvasList[viewModel.CanvasList.Count - 1] as Connector;
                     chipToIn.MarginHandlerNotify += connector.ChangeEndPoint;
-                    //� ������ ��������� ����������� ���� ���� 
-                    if (chipToIn.port1free)
+                    //if (chipToIn is DemultiplexerChip)
+                    //{
+                    //    if (ellipse.Name == "Manager")
+                    //    {
+                    //        connector.OutSignalHandlerNotify += ((DemultiplexerChip)chipToIn).Manager;
+                    //    }
+                    //    if (ellipse.Name == "In1")
+                    //    {
+                    //        connector.OutSignalHandlerNotify += ((DemultiplexerChip)chipToIn).InSignal;
+                    //    }
+                    //}
+                    //else
+                    //{
+                    if (ellipse.Name == "In1")
                     {
-                        connector.OutSignalHandlerNotify += chipToIn.In1Signal;
-                        chipToIn.port1free = false;
+                        connector.TiedToOut1Chip = chipToIn;
+                        chipToIn.TiedToIn1Chip = connector;
+                        connector.EntryNumberForFiling = 1;
                     }
-                    else if (chipToIn.port2free)
+                    else if (ellipse.Name == "In2")
                     {
-                        connector.OutSignalHandlerNotify += chipToIn.In2Signal;
-                        chipToIn.port2free = false;
+                        connector.TiedToOut1Chip = chipToIn;
+                        chipToIn.TiedToIn2Chip = connector;
+                        connector.EntryNumberForFiling = 1;
                     }
+                    //}
                     return;
                 }
             }
