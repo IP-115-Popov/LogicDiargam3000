@@ -1,6 +1,7 @@
 ﻿using DynamicData.Binding;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,7 +27,10 @@ namespace LogicDiagram3000.Models.logicChip
         public bool IsFocused
         {
             get => isFocused;
-            set => SetAndRaise(ref isFocused, value);
+            set
+            {
+               if (isFocused != value) SetAndRaise(ref isFocused, value);
+            }
         }
         public string? Margin
         {

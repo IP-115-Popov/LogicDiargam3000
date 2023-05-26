@@ -14,7 +14,7 @@
         Title="LogicDiagram3000"
 		KeyDown="MyKeyDown"
 		>
-
+	
     <Design.DataContext>
         <vm:MainWindowViewModel/>
     </Design.DataContext>
@@ -25,10 +25,10 @@
 		<Grid Width="{Binding $parent[Window].Width}" Grid.Row="0" ColumnDefinitions="*,*,*,*,*,*,*,*,*,*">
 			<Menu Grid.Column="0">
 				<MenuItem Header="Меню">
-					<MenuItem Header="Создать"/>
-					<MenuItem Header="Открыть"/>
-					<MenuItem Header="Сохранить"/>
-					<MenuItem Header="Выйти"/>
+					<MenuItem Header="Создать" Click="CreateSchame"/>
+					<MenuItem Header="Открыть" Click="LoadXml"/>
+					<MenuItem Header="Сохранить" Click="SaveXml"/>
+					<MenuItem Header="Выйти" Click="Exit"/>
 				</MenuItem>
 			</Menu>			
 			<RadioButton Grid.Column="1" GroupName="Chip" IsChecked="{Binding InChipDraw}">
@@ -57,13 +57,15 @@
 			</RadioButton>
 		</Grid>
 		<Grid Width="{Binding $parent[Window].Width}" Grid.Row="1" ColumnDefinitions="0.2*,*,0.2*">
-			<ListBox Grid.Column="0" Items="{Binding CanvasList}">
+			
+			<ListBox Grid.Column="0" Items="{Binding SchemeList}" SelectedItem="{Binding EditableScheme}">
 				<ListBox.ItemTemplate>
 					<DataTemplate>
-						<TextBlock Text="{Binding TupeChip}"/>
+						<TextBox Text="{Binding Name}"/>
 					</DataTemplate>
 				</ListBox.ItemTemplate>
 			</ListBox>
+			
 			<ItemsControl Grid.Column="1"
 						  Items="{Binding CanvasList}"
 						  HorizontalAlignment="Stretch"

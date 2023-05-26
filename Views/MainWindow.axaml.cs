@@ -1,6 +1,7 @@
-using Avalonia.Controls;
+п»їusing Avalonia.Controls;
 using Avalonia.Controls.Shapes;
 using Avalonia.Input;
+using Avalonia.Interactivity;
 using Avalonia.VisualTree;
 using DynamicData;
 using LogicDiagram3000.Models.Connectors;
@@ -17,13 +18,61 @@ namespace LogicDiagram3000.Views
         {
             InitializeComponent();
         }
+        //Menu
+        private void CreateSchame(object sender, RoutedEventArgs eventArgs)
+        {
+            if (this.DataContext is MainWindowViewModel viewModel)
+            {
+                viewModel.SchemeList.Add(new Scheme());
+            }
+        }
+        private async void LoadXml(object sender, RoutedEventArgs eventArgs)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filters.Add(
+                new FileDialogFilter
+                {
+                    Name = "Xml files",
+                    Extensions = new string[] { "xml" }.ToList()
+                });
+            string[]? path = await openFileDialog.ShowAsync(this);
+            if (path != null)
+            {
+                if (this.DataContext is MainWindowViewModel dataContext)
+                {
+                    dataContext.Load(path[0]);
+                }
+            }
+        }
+        private async void SaveXml(object sender, RoutedEventArgs eventArgs)
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filters.Add(
+                new FileDialogFilter
+                {
+                    Name = "Xml files",
+                    Extensions = new string[] { "xml" }.ToList()
+                });
+            string? path = await saveFileDialog.ShowAsync(this);
+            if (path != null)
+            {
+                if (this.DataContext is MainWindowViewModel dataContext)
+                {
+                    dataContext.Save(path);
+                }
+            }
+        }
+        private void Exit(object sender, RoutedEventArgs eventArgs)
+        {
+
+        }
         private void MyKeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Delete)
             {
                 if (this.DataContext is MainWindowViewModel viewModel)
                 {
-                    foreach(var i in viewModel.CanvasList)
+                    foreach (var i in viewModel.CanvasList)
                     {
                         if (i is ChipToIn)
                             if (((ChipToIn)i).IsFocused == true)
@@ -66,7 +115,7 @@ namespace LogicDiagram3000.Views
                             };
                             if (conector != null)
                             {
-                                //к выходу  чипа а присоединяю вход конектора
+                                //пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ  пїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
                                 chipToIn.OutSignalHandlerNotify += conector.In1Signal;
 
 
@@ -155,14 +204,14 @@ namespace LogicDiagram3000.Views
                 {
                     Connector connector = viewModel.CanvasList[viewModel.CanvasList.Count - 1] as Connector;
                     chipToIn.MarginHandlerNotify += connector.ChangeEndPoint;
-                    //к выходу конектора присоединяю вход чипа 
+                    //пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ 
                     if (chipToIn.port1free)
                     {
                         connector.OutSignalHandlerNotify += chipToIn.In1Signal;
                         chipToIn.port1free = false;
                     }
                     else if (chipToIn.port2free)
-                    { 
+                    {
                         connector.OutSignalHandlerNotify += chipToIn.In2Signal;
                         chipToIn.port2free = false;
                     }

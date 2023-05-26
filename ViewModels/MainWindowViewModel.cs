@@ -4,7 +4,10 @@ using ReactiveUI;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Text;
+using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace LogicDiagram3000.ViewModels
 {
@@ -18,21 +21,54 @@ namespace LogicDiagram3000.ViewModels
         private bool inChipDraw;
         private bool indicatorChipDraw;
         private ObservableCollection<object> canvasList;
-        private ObservableCollection<ObservableCollection<object>> schemeList;
+        private ObservableCollection<Scheme> schemeList;
+        private Scheme editableScheme;
+        private object contentWindow;
         public MainWindowViewModel()
         {
+            SchemeList = new ObservableCollection<Scheme>();
+            EditableScheme = new Scheme();
+            EditableScheme.CanvasList.Add(
+                new AndChip()
+                {
+                    Margin = "100,100",
+                    Height = 128,
+                    Width = 128,
+                }
+                );
+            SchemeList.Add(EditableScheme);
+
+            SchemeList.Add(new Scheme());
             CanvasList = new ObservableCollection<object>();
-            CanvasList.Add(new AndChip()
+            CanvasList = EditableScheme.CanvasList;
+        }
+        public object ContentWindow
+        {
+            get => contentWindow;
+            set => this.RaiseAndSetIfChanged(ref contentWindow, value);
+        }
+        public ObservableCollection<Scheme> SchemeList
+        {
+            get => schemeList;
+            set => this.RaiseAndSetIfChanged(ref schemeList, value);
+        }
+        public Scheme EditableScheme
+        {
+            get => editableScheme;
+            set
             {
-                Margin = "100,100",
-                Height = 128,
-                Width = 128,
-            });
+                this.RaiseAndSetIfChanged(ref editableScheme, value);
+                CanvasList = editableScheme.CanvasList;
+            }
         }
         public ObservableCollection<object> CanvasList
         {
             get => canvasList;
-            set => this.RaiseAndSetIfChanged(ref canvasList, value);
+            set
+            {
+                this.RaiseAndSetIfChanged(ref canvasList, value);
+                EditableScheme.CanvasList = canvasList;
+            }
         }
         public bool AddChipDraw
         {
@@ -115,6 +151,27 @@ namespace LogicDiagram3000.ViewModels
                 Height = 128,
                 Width = 128,
             });
+        }
+        public void Load(string path)
+        {
+            //CanvasList.Clear();
+            //XmlSerializer xmlSerializer = new XmlSerializer(typeof(ToSerialisedListConverter));
+            //using (FileStream fs = new FileStream(path, FileMode.OpenOrCreate))
+            //{
+            //    ToSerialisedListConverter toSerialisedListConverter = xmlSerializer.Deserialize(fs) as ToSerialisedListConverter;
+            //    CanvasList = toSerialisedListConverter.ConverterBack();
+            //}
+        }
+        public void Save(string path)
+        {
+            //ToSerialisedListConverter toSerialisedListConverter = new ToSerialisedListConverter();
+            //toSerialisedListConverter.Converter(canvasList);
+
+            //XmlSerializer xmlSerializer = new XmlSerializer(typeof(ToSerialisedListConverter));
+            //using (FileStream fs = new FileStream(path, FileMode.OpenOrCreate))
+            //{
+            //    xmlSerializer.Serialize(fs, toSerialisedListConverter);
+            //}
         }
     }
 }
