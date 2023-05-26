@@ -8,12 +8,12 @@
   <Style Selector="controls|AndChipView">
     <Setter Property="Template">
       <ControlTemplate>
-		  <Canvas Height="110" Width="160" Background="Transparent">
-			  <Path Data="M 5,5 105,5 c 0,0 50,0 50,50 c 0,0 0,50 -50,50 l 0,0 -100,0Z" Fill="White" StrokeThickness="2" Stroke="Black"/>
-			  <Ellipse Width="15" Height="15" Margin="-2,25" Fill="DarkGreen" StrokeThickness="3" Classes="In"/>
-			  <Ellipse Width="15" Height="15" Margin="147,50" Fill="DarkGreen" StrokeThickness="3" Classes="Out"/>
-			  <Ellipse Width="15" Height="15" Margin="-2,70" Fill="DarkGreen" StrokeThickness="3" Classes="In"/>  
-		  </Canvas>
+			<Canvas Height="110" Width="160" Background="Transparent">
+				<Path Data="M 5,5 105,5 c 0,0 50,0 50,50 c 0,0 0,50 -50,50 l 0,0 -100,0Z" Fill="White" StrokeThickness="2" Stroke="Black"/>
+				<Ellipse Width="15" Height="15" Margin="-2,25" Fill="DarkGreen" StrokeThickness="3" Classes="In"/>
+				<Ellipse Width="15" Height="15" Margin="147,50" Fill="DarkGreen" StrokeThickness="3" Classes="Out"/>
+				<Ellipse Width="15" Height="15" Margin="-2,70" Fill="DarkGreen" StrokeThickness="3" Classes="In"/>  
+			</Canvas>
 	  </ControlTemplate>
     </Setter>
   </Style>

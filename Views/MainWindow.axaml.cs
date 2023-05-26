@@ -2,9 +2,11 @@ using Avalonia.Controls;
 using Avalonia.Controls.Shapes;
 using Avalonia.Input;
 using Avalonia.VisualTree;
+using DynamicData;
 using LogicDiagram3000.Models.Connectors;
 using LogicDiagram3000.Models.logicChip;
 using LogicDiagram3000.ViewModels;
+using System;
 using System.Linq;
 
 namespace LogicDiagram3000.Views
@@ -15,6 +17,30 @@ namespace LogicDiagram3000.Views
         {
             InitializeComponent();
         }
+        private void MyKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Delete)
+            {
+                if (this.DataContext is MainWindowViewModel viewModel)
+                {
+                    foreach(var i in viewModel.CanvasList)
+                    {
+                        if (i is ChipToIn)
+                            if (((ChipToIn)i).IsFocused == true)
+                            {
+                                viewModel.CanvasList.Remove(i);
+                                break;
+                            }
+                        if (i is Connector)
+                            if (((Connector)i).IsFocused == true)
+                            {
+                                viewModel.CanvasList.Remove(i);
+                                break;
+                            }
+                    }
+                }
+            }
+        }
         private Avalonia.Point pointerPressedEvent;
         private void PointerPressedOnCanvas(object? sender, PointerPressedEventArgs pointerPressedEventArgs)
         {
@@ -22,6 +48,7 @@ namespace LogicDiagram3000.Views
             {
                 if (control.DataContext is ChipToIn chipToIn)
                 {
+
                     pointerPressedEvent = pointerPressedEventArgs
                         .GetPosition(
                         this.GetVisualDescendants()

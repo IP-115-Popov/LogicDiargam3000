@@ -11,7 +11,9 @@
 		Width="800" Height="450"
         x:Class="LogicDiagram3000.Views.MainWindow"
         Icon="/Assets/avalonia-logo.ico"
-        Title="LogicDiagram3000">
+        Title="LogicDiagram3000"
+		KeyDown="MyKeyDown"
+		>
 
     <Design.DataContext>
         <vm:MainWindowViewModel/>
@@ -19,8 +21,8 @@
 	<Window.Resources>
 		<conv:StringToThicknessConverter x:Key="stringToThicknessConverter"/>
 	</Window.Resources>
-	<Grid RowDefinitions="0.1*,*" Height="{Binding $parent[Window].Height}" ShowGridLines="True"	>
-		<Grid Width="{Binding $parent[Window].Width}" Grid.Row="0" ColumnDefinitions="*,*,*,*,*,*,*,*,*">
+	<Grid RowDefinitions="0.1*,*" Height="{Binding $parent[Window].Height}" ShowGridLines="True">
+		<Grid Width="{Binding $parent[Window].Width}" Grid.Row="0" ColumnDefinitions="*,*,*,*,*,*,*,*,*,*">
 			<Menu Grid.Column="0">
 				<MenuItem Header="Меню">
 					<MenuItem Header="Создать"/>
@@ -28,7 +30,7 @@
 					<MenuItem Header="Сохранить"/>
 					<MenuItem Header="Выйти"/>
 				</MenuItem>
-			</Menu>
+			</Menu>			
 			<RadioButton Grid.Column="1" GroupName="Chip" IsChecked="{Binding InChipDraw}">
 				<Image HorizontalAlignment="Left" Source="/Assets/Image/In.png"/>
 			</RadioButton>
@@ -50,36 +52,48 @@
 			<RadioButton Grid.Column="7" GroupName="Chip" IsChecked="{Binding IndicatorChipDraw}">
 				<Image HorizontalAlignment="Left" Source="/Assets/Image/Indicator.png"/>
 			</RadioButton>
+			<RadioButton Grid.Column="8" GroupName="Chip">
+				<Image HorizontalAlignment="Left" Source="/Assets/Image/kyrsor.png"/>
+			</RadioButton>
 		</Grid>
 		<Grid Width="{Binding $parent[Window].Width}" Grid.Row="1" ColumnDefinitions="0.2*,*,0.2*">
+			<ListBox Grid.Column="0" Items="{Binding CanvasList}">
+				<ListBox.ItemTemplate>
+					<DataTemplate>
+						<TextBlock Text="{Binding TupeChip}"/>
+					</DataTemplate>
+				</ListBox.ItemTemplate>
+			</ListBox>
 			<ItemsControl Grid.Column="1"
 						  Items="{Binding CanvasList}"
 						  HorizontalAlignment="Stretch"
 						  VerticalAlignment="Stretch"
-						  PointerPressed="PointerPressedOnCanvas">
+						  PointerPressed="PointerPressedOnCanvas"
+						  >
 				<ItemsControl.ItemsPanel>
 					<ItemsPanelTemplate>
-						<Canvas Name="canvas" Height="{Binding $parent[ItemsControl].Height}" Width="{Binding $parent[ItemsControl].Width}" Background="Aqua"/>
+						<Canvas KeyDown="MyKeyDown" Name="canvas" Height="{Binding $parent[ItemsControl].Height}" Width="{Binding $parent[ItemsControl].Width}" Background="Aqua"/>
 					</ItemsPanelTemplate>
 				</ItemsControl.ItemsPanel>
+				
 				<ItemsControl.DataTemplates>
 					<DataTemplate DataType="{x:Type chip:AndChip}">
-						<logicV:AndChipView Margin="{Binding Margin, Converter={StaticResource stringToThicknessConverter}}"/>
+						<logicV:AndChipView Focusable="True" IsFocused="{Binding IsFocused, Mode=OneWayToSource}" Margin="{Binding Margin, Converter={StaticResource stringToThicknessConverter}}"/>
 					</DataTemplate>
 					<DataTemplate DataType="{x:Type chip:OrChip}">
-						<logicV:OrChipView Margin="{Binding Margin, Converter={StaticResource stringToThicknessConverter}}"/>
+						<logicV:OrChipView Focusable="True" IsFocused="{Binding IsFocused, Mode=OneWayToSource}" Margin="{Binding Margin, Converter={StaticResource stringToThicknessConverter}}"/>
 					</DataTemplate>
 					<DataTemplate DataType="{x:Type chip:NotChip}">
-						<logicV:NotChipView Margin="{Binding Margin, Converter={StaticResource stringToThicknessConverter}}"/>
+						<logicV:NotChipView Focusable="True" IsFocused="{Binding IsFocused, Mode=OneWayToSource}" Margin="{Binding Margin, Converter={StaticResource stringToThicknessConverter}}"/>
 					</DataTemplate>
 					<DataTemplate DataType="{x:Type chip:XorChip}">
-						<logicV:XorChipView Margin="{Binding Margin, Converter={StaticResource stringToThicknessConverter}}"/>
+						<logicV:XorChipView Focusable="True" IsFocused="{Binding IsFocused, Mode=OneWayToSource}" Margin="{Binding Margin, Converter={StaticResource stringToThicknessConverter}}"/>
 					</DataTemplate>
 					<DataTemplate DataType="{x:Type chip:DemultiplexerChip}">
-						<logicV:DemultiplexerChipView Margin="{Binding Margin, Converter={StaticResource stringToThicknessConverter}}"/>
+						<logicV:DemultiplexerChipView Focusable="True" IsFocused="{Binding IsFocused, Mode=OneWayToSource}" Margin="{Binding Margin, Converter={StaticResource stringToThicknessConverter}}"/>
 					</DataTemplate>
 					<DataTemplate DataType="{x:Type chip:InChip}">
-						<Panel>
+						<Panel Focusable="True" IsFocused="{Binding IsFocused, Mode=OneWayToSource}" >
 							<logicV:InChipView Margin="{Binding Margin, Converter={StaticResource stringToThicknessConverter}}"/>
 							<Panel Height="50" Width="50">
 								<TextBox Text="{Binding IsSignalTrue}"/>
@@ -87,15 +101,19 @@
 						</Panel>
 					</DataTemplate>
 					<DataTemplate DataType="{x:Type chip:IndicatorChip}">
-						<logicV:IndicatorChipView IndicatorChesk="{Binding In1SignalProperty}" Margin="{Binding Margin, Converter={StaticResource stringToThicknessConverter}}"/>
+						<logicV:IndicatorChipView Focusable="True" IsFocused="{Binding IsFocused, Mode=OneWayToSource}" IndicatorChesk="{Binding In1SignalProperty}" Margin="{Binding Margin, Converter={StaticResource stringToThicknessConverter}}"/>
 					</DataTemplate>
 					<DataTemplate DataType="{x:Type conectors:Connector}">
-						<Line StartPoint="{Binding StartPoint}"
+						<Panel Focusable="True" IsFocused="{Binding IsFocused, Mode=OneWayToSource}" >
+							  <Line 
+							  StartPoint="{Binding StartPoint}"
 							  EndPoint="{Binding EndPoint}"
-							  StrokeThickness="3"
+							  StrokeThickness="5"
 							  Stroke="Yellow"/>
+						</Panel>
 					</DataTemplate>
 				</ItemsControl.DataTemplates>
+			
 			</ItemsControl>
 			
 			<ListBox Grid.Column="2" Items="{Binding CanvasList}">

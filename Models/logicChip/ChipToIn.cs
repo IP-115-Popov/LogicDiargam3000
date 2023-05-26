@@ -11,6 +11,7 @@ namespace LogicDiagram3000.Models.logicChip
     {
         public bool port1free;
         public bool port2free;
+        protected bool isFocused;
         protected string? margin;
         protected string? oldMargin;
         protected int width;
@@ -21,6 +22,11 @@ namespace LogicDiagram3000.Models.logicChip
             port2free = true;
             In1SignalProperty = 0;
             In1SignalProperty = 0;
+        }
+        public bool IsFocused
+        {
+            get => isFocused;
+            set => SetAndRaise(ref isFocused, value);
         }
         public string? Margin
         {

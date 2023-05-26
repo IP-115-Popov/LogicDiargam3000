@@ -12,6 +12,16 @@ namespace LogicDiagram3000.Models.Connectors
     {
         private Point startPoint;
         private Point endPoint;
+        protected bool isFocused;
+        public bool IsFocused
+        {
+            get => isFocused;
+            set => SetAndRaise(ref isFocused, value);
+        }
+        public string? TupeChip
+        {
+            get => "Connector";
+        }
         public Point StartPoint
         {
             get => startPoint;
@@ -43,6 +53,7 @@ namespace LogicDiagram3000.Models.Connectors
             in1Signal = value;
             OutSignalHandlerNotify?.Invoke(OutSignal());
         }
+
         protected virtual int OutSignal() => in1Signal;
         public delegate void OutSignalHandler(int a);
         public event OutSignalHandler? OutSignalHandlerNotify;

@@ -18,6 +18,7 @@ namespace LogicDiagram3000.ViewModels
         private bool inChipDraw;
         private bool indicatorChipDraw;
         private ObservableCollection<object> canvasList;
+        private ObservableCollection<ObservableCollection<object>> schemeList;
         public MainWindowViewModel()
         {
             CanvasList = new ObservableCollection<object>();
@@ -68,6 +69,7 @@ namespace LogicDiagram3000.ViewModels
             get => indicatorChipDraw;
             set => this.RaiseAndSetIfChanged(ref indicatorChipDraw, value);
         }
+
         public void AddChipOnCanvas(Point A)
         {
             string AStrting = A.ToString();
