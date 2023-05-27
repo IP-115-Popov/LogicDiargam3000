@@ -18,6 +18,13 @@ namespace LogicDiagram3000.Views
         {
             InitializeComponent();
         }
+        private async void OnDoubleTapped(object? sender, RoutedEventArgs routedEventArgs)
+        {
+            if (this.DataContext is MainWindowViewModel viewModel)
+            {
+                viewModel.EditableScheme = viewModel.SelectedScheme;
+            }
+        }
         //Menu
         private void CreateProject(object sender, RoutedEventArgs eventArgs)
         {

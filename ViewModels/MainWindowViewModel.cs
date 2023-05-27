@@ -23,6 +23,7 @@ namespace LogicDiagram3000.ViewModels
         private ObservableCollection<object> canvasList;
         private ObservableCollection<Scheme> schemeList;
         private Scheme editableScheme;
+        private Scheme selectedScheme;
         private bool isVisibleHelloView;
         private bool isVisibleProjectView;
         public MainWindowViewModel()
@@ -67,6 +68,14 @@ namespace LogicDiagram3000.ViewModels
             {
                 this.RaiseAndSetIfChanged(ref editableScheme, value);
                 CanvasList = editableScheme.CanvasList;
+            }
+        }
+        public Scheme SelectedScheme
+        {
+            get => selectedScheme;
+            set
+            {
+                this.RaiseAndSetIfChanged(ref selectedScheme, value);
             }
         }
         public ObservableCollection<object> CanvasList

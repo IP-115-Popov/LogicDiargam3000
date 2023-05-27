@@ -64,7 +64,7 @@
 		</Grid>
 		<Grid Width="{Binding $parent[Window].Width}" Grid.Row="1" ColumnDefinitions="0.2*,*,0.2*">
 			
-			<ListBox Grid.Column="0" Items="{Binding SchemeList}" SelectedItem="{Binding EditableScheme}">
+			<ListBox Grid.Column="0" Items="{Binding SchemeList}" SelectedItem="{Binding SelectedScheme}" DoubleTapped="OnDoubleTapped">
 				<ListBox.ItemTemplate>
 					<DataTemplate>
 						<TextBox Text="{Binding Name}"/>
