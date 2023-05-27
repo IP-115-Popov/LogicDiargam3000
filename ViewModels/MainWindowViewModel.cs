@@ -75,6 +75,8 @@ namespace LogicDiagram3000.ViewModels
             get => selectedScheme;
             set
             {
+                AddChipDraw = true;
+                AddChipDraw = false;
                 this.RaiseAndSetIfChanged(ref selectedScheme, value);
             }
         }
@@ -168,6 +170,13 @@ namespace LogicDiagram3000.ViewModels
                 Height = 128,
                 Width = 128,
             });
+            else if (SelectedScheme != null)
+            {
+                SelectedScheme.Margin = AStrting;
+                SelectedScheme.Height = 128;
+                SelectedScheme.Width = 128;
+                CanvasList.Add(SelectedScheme);
+            }
         }
         public void Load(string path)
         {
