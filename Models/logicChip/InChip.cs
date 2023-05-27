@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LogicDiagram3000.Models.logicChip
 {
@@ -17,14 +13,12 @@ namespace LogicDiagram3000.Models.logicChip
         {
             get => "InChip";
         }
-        //protected override int OutSignal() => in1Signal;
         public string IsSignalTrue
         {
             get => isSignalTrue;
             set
             {
                 SetAndRaise(ref isSignalTrue, value);
-                //if (isSignalTrue != "") In1Signal(Convert.ToInt32(isSignalTrue));
                 if (isSignalTrue != "" && TiedToOut1Chip != null) TiedToOut1Chip.In1 = Convert.ToInt32(isSignalTrue);
             }
         }

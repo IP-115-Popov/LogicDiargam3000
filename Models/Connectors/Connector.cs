@@ -1,19 +1,11 @@
 ﻿using Avalonia;
 using DynamicData.Binding;
 using LogicDiagram3000.Models.logicChip;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LogicDiagram3000.Models.Connectors
 {
     public class Connector : AbstractNotifyPropertyChanged
     {
-        //new Lojic 
-        //protected ChipToIn tiedToOut1Chip;
-        //protected ChipToIn tiedToIn1Chip;
         protected int in1;
         public ChipToIn TiedToOut1Chip { get; set; }
         public ChipToIn TiedToIn1Chip { get; set; }
@@ -72,16 +64,5 @@ namespace LogicDiagram3000.Models.Connectors
         {
             this.EndPoint += dPoint;
         }
-        //signal transmission
-       // protected int in1Signal;
-        //public void In1Signal(int value)
-        //{
-        //    in1Signal = value;
-        //    OutSignalHandlerNotify?.Invoke(OutSignal());
-       // }
-
-       // protected virtual int OutSignal() => in1Signal;
-        //public delegate void OutSignalHandler(int a);
-       // public event OutSignalHandler? OutSignalHandlerNotify;
     }
 }

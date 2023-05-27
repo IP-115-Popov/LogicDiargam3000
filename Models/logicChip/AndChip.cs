@@ -12,11 +12,6 @@ namespace LogicDiagram3000.Models.logicChip
         {
             get => "AndChip";
         }
-        //protected override int OutSignal()
-        //{
-        //    int rez = (in1Signal & in2Signal);
-        //    return rez;
-        //}
         protected override void Out1()
         {
             if (TiedToOut1Chip != null) 
