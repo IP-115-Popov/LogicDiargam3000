@@ -88,12 +88,15 @@ namespace LogicDiagram3000.Views
                                 if (chipToIn.TiedToIn1Chip != null) chipToIn.TiedToIn1Chip.ClearBindings(chipToIn);
                                 if (chipToIn.TiedToIn2Chip != null) chipToIn.TiedToIn2Chip.ClearBindings(chipToIn);
                                 if (chipToIn.TiedToOut1Chip != null) chipToIn.TiedToOut1Chip.ClearBindings(chipToIn);
+                                if (chipToIn is DemultiplexerChip demultiplexerChip)
+                                    if (demultiplexerChip.TiedToOut2Chip != null) 
+                                        demultiplexerChip.TiedToOut2Chip.ClearBindings(chipToIn);
 
                                 viewModel.CanvasList.RemoveAt(i);
                                 viewModel.CanvasList.Remove(chipToIn.TiedToIn1Chip);
                                 viewModel.CanvasList.Remove(chipToIn.TiedToIn2Chip);
                                 viewModel.CanvasList.Remove(chipToIn.TiedToOut1Chip);
-                                if (chipToIn is DemultiplexerChip demultiplexerChip) viewModel.CanvasList.Remove(demultiplexerChip.TiedToOut2Chip);
+                                if (chipToIn is DemultiplexerChip demultiplexerChip2) viewModel.CanvasList.Remove(demultiplexerChip2.TiedToOut2Chip);
 
                                 chipToIn.Dispose();
                                 chipToIn = null;
