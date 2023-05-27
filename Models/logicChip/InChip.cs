@@ -11,20 +11,21 @@ namespace LogicDiagram3000.Models.logicChip
         private string isSignalTrue;
         public InChip()
         {
-            IsSignalTrue = "";
+            IsSignalTrue = "0";
         }
         public string? TupeChip
         {
             get => "InChip";
         }
-        protected override int OutSignal() => in1Signal;
+        //protected override int OutSignal() => in1Signal;
         public string IsSignalTrue
         {
             get => isSignalTrue;
             set
             {
                 SetAndRaise(ref isSignalTrue, value);
-                if (isSignalTrue != "") In1Signal(Convert.ToInt32(isSignalTrue));                         
+                //if (isSignalTrue != "") In1Signal(Convert.ToInt32(isSignalTrue));
+                if (isSignalTrue != "" && TiedToOut1Chip != null) TiedToOut1Chip.In1 = Convert.ToInt32(isSignalTrue);
             }
         }
     }

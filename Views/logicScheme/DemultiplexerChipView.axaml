@@ -13,10 +13,9 @@
 			  <Rectangle Height="200" Width="100" Margin="5,5" Stroke="Black" StrokeThickness="2"/>
 			  <Ellipse Width="15" Height="15" Margin="97,35" Fill="DarkGreen" StrokeThickness="3" Name="Out1"/>		  
 			  <Ellipse Width="15" Height="15" Margin="97,160" Fill="DarkGreen" StrokeThickness="3" Name="Out2"/>
-			  
-			  <Ellipse Width="15" Height="15" Margin="50,197" Fill="DarkGreen" StrokeThickness="3" Name="Manager"/>
-			  
+			
 			  <Ellipse Width="15" Height="15" Margin="-2,100" Fill="DarkGreen" StrokeThickness="3" Name="In1"/>
+			  <Ellipse Width="15" Height="15" Margin="50,197" Fill="DarkGreen" StrokeThickness="3" Name="In2"/>
 		  </Canvas>
       </ControlTemplate>
     </Setter>

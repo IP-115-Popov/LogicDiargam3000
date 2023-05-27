@@ -109,7 +109,7 @@
 						</Panel>
 					</DataTemplate>
 					<DataTemplate DataType="{x:Type chip:IndicatorChip}">
-						<logicV:IndicatorChipView Focusable="True" IsFocused="{Binding IsFocused, Mode=OneWayToSource}" IndicatorChesk="{Binding In1SignalProperty}" Margin="{Binding Margin, Converter={StaticResource stringToThicknessConverter}}"/>
+						<logicV:IndicatorChipView Focusable="True" IsFocused="{Binding IsFocused, Mode=OneWayToSource}" IndicatorChesk="{Binding In1}" Margin="{Binding Margin, Converter={StaticResource stringToThicknessConverter}}"/>
 					</DataTemplate>
 					<DataTemplate DataType="{x:Type conectors:Connector}">
 						<Panel Focusable="True" IsFocused="{Binding IsFocused, Mode=OneWayToSource}" >

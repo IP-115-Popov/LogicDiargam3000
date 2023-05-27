@@ -12,11 +12,15 @@ namespace LogicDiagram3000.Models.logicChip
         {
             get => "AndChip";
         }
-        protected override int OutSignal()
+        //protected override int OutSignal()
+        //{
+        //    int rez = (in1Signal & in2Signal);
+        //    return rez;
+        //}
+        protected override void Out1()
         {
-            int rez = (in1Signal & in2Signal);
-            return rez;
+            if (TiedToOut1Chip != null) 
+                TiedToOut1Chip.In1 = In1 & In2;
         }
-            
     }
 }

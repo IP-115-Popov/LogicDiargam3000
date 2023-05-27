@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LogicDiagram3000.Models.Connectors;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,42 +9,30 @@ namespace LogicDiagram3000.Models.logicChip
 {
     public class DemultiplexerChip : ChipToIn
     {
-        public int managerSignal;
-        public DemultiplexerChip()
-        {
-            ManagerSignalProperty = 0;
-        }
         public string? TupeChip
         {
             get => "DemultiplexerChip";
         }
-        public int ManagerSignalProperty
+        public Connector TiedToOut2Chip { get; set; }
+        protected override void Out1()
         {
-            get => managerSignal;
-            set => SetAndRaise(ref managerSignal, value);
-        }
-        public void InSignal(int value)
-        {
-            In1SignalProperty = value;
-            if (ManagerSignalProperty == 0)
+            if (In2 == 0)
             {
-                Out1SignalHandlerNotify?.Invoke(OutSignal());
-                Out2SignalHandlerNotify?.Invoke(0);
-            }
-            else if (ManagerSignalProperty == 1)
-            {
-                Out1SignalHandlerNotify?.Invoke(0);
-                Out2SignalHandlerNotify?.Invoke(OutSignal());
-            }
-        }
-        public void Manager(int value)
-        {
-            ManagerSignalProperty = value;
-            InSignal(In1SignalProperty);
-        }
+                if (TiedToOut1Chip != null)
+                {
+                    TiedToOut1Chip.In1 = In1;
+                    TiedToOut2Chip.In1 = 0;
 
-        protected override int OutSignal() => in1Signal;
-        public event OutSignalHandler? Out1SignalHandlerNotify;
-        public event OutSignalHandler? Out2SignalHandlerNotify;
+                }
+            }
+            else if (In2 == 1)
+            {
+                if (TiedToOut2Chip != null)
+                {
+                    TiedToOut1Chip.In1 = 0;
+                    TiedToOut2Chip.In1 = In1;
+                }
+            }
+        }
     }
 }

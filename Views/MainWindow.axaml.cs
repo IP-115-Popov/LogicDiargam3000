@@ -136,7 +136,22 @@ namespace LogicDiagram3000.Views
                                     chipToIn.TiedToOut1Chip = conector;
                                     conector.TiedToIn1Chip = chipToIn;
                                 }
-                                
+                                else if (ellipse.Name == "Out2")
+                                {
+                                    ((DemultiplexerChip)chipToIn).TiedToOut2Chip = conector;
+                                    conector.TiedToIn1Chip = chipToIn;
+                                }
+                                else if (ellipse.Name == "In1")
+                                {
+                                    conector.TiedToOut1Chip = chipToIn;
+                                    chipToIn.TiedToIn1Chip = conector;
+                                }
+                                else if (ellipse.Name == "In2")
+                                {
+                                    conector.TiedToOut1Chip = chipToIn;
+                                    chipToIn.TiedToIn2Chip = conector;
+                                }
+
 
                                 chipToIn.MarginHandlerNotify += conector.ChangeStartPoint;
                                 viewModel.CanvasList.Add(conector);
@@ -222,33 +237,27 @@ namespace LogicDiagram3000.Views
                 if (ellipse.DataContext is ChipToIn chipToIn)
                 {
                     Connector connector = viewModel.CanvasList[viewModel.CanvasList.Count - 1] as Connector;
-                    chipToIn.MarginHandlerNotify += connector.ChangeEndPoint;
-                    //if (chipToIn is DemultiplexerChip)
-                    //{
-                    //    if (ellipse.Name == "Manager")
-                    //    {
-                    //        connector.OutSignalHandlerNotify += ((DemultiplexerChip)chipToIn).Manager;
-                    //    }
-                    //    if (ellipse.Name == "In1")
-                    //    {
-                    //        connector.OutSignalHandlerNotify += ((DemultiplexerChip)chipToIn).InSignal;
-                    //    }
-                    //}
-                    //else
-                    //{
-                    if (ellipse.Name == "In1")
+                    chipToIn.MarginHandlerNotify += connector.ChangeEndPoint;                   
+                    if (ellipse.Name == "Out1")
+                    {
+                        chipToIn.TiedToOut1Chip = connector;
+                        connector.TiedToIn1Chip = chipToIn;
+                    }
+                    else if (ellipse.Name == "Out2")
+                    {
+                        ((DemultiplexerChip)chipToIn).TiedToOut2Chip = connector;
+                        connector.TiedToIn1Chip = chipToIn;
+                    }
+                    else if (ellipse.Name == "In1")
                     {
                         connector.TiedToOut1Chip = chipToIn;
                         chipToIn.TiedToIn1Chip = connector;
-                        connector.EntryNumberForFiling = 1;
                     }
                     else if (ellipse.Name == "In2")
                     {
                         connector.TiedToOut1Chip = chipToIn;
                         chipToIn.TiedToIn2Chip = connector;
-                        connector.EntryNumberForFiling = 1;
                     }
-                    //}
                     return;
                 }
             }

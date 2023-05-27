@@ -11,9 +11,8 @@
       <ControlTemplate>
 		  <Canvas Height="110" Width="160" Background="Transparent">
 			  <Path Data="M 5,5 155,57 5,105 Z" Fill="White" StrokeThickness="2" Stroke="Black"/>
-			  <Ellipse Width="15" Height="15" Margin="-2,25" Fill="DarkGreen" StrokeThickness="3" Name="In1"/>
+			  <Ellipse Width="15" Height="15" Margin="-2,50" Fill="DarkGreen" StrokeThickness="3" Name="In1"/>
 			  <Ellipse Width="15" Height="15" Margin="147,50" Fill="DarkGreen" StrokeThickness="3" Name="Out1"/>
-			  <Ellipse Width="15" Height="15" Margin="-2,70" Fill="DarkGreen" StrokeThickness="3" Name="In2"/>
 		  </Canvas>
       </ControlTemplate>
     </Setter>

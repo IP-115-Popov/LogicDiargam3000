@@ -8,24 +8,25 @@ namespace LogicDiagram3000.Models.logicChip
 {
     public class IndicatorChip : ChipToIn
     {
-        private string outSignalMy;
+        //private string outSignalMy;
         public IndicatorChip()
         {
-            OutSignalMy = "0";
+            //OutSignalMy = "0";
+            In1 = 0;
         }
         public string? TupeChip
         {
             get => "IndicatorChip";
         }
 
-        public string OutSignalMy
-        {
-            get => in1Signal.ToString();
-            set
-            {
-                outSignalMy = in1Signal.ToString();
-                SetAndRaise(ref outSignalMy, value);
-            }
-        }
+        //public string OutSignalMy
+        //{
+        //    get => In1.ToString();
+        //    set
+        //    {
+        //        outSignalMy = In1.ToString();
+        //        SetAndRaise(ref outSignalMy, value);
+        //    }
+        //}
     }
 }

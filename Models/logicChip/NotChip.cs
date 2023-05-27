@@ -12,6 +12,11 @@ namespace LogicDiagram3000.Models.logicChip
         {
             get => "NotChip";
         }
-        protected override int OutSignal() => ~in1Signal;
+        //protected override int OutSignal() => ~in1Signal;
+        protected override void Out1()
+        {
+            if (TiedToOut1Chip != null)
+                TiedToOut1Chip.In1 = ~In1;
+        }
     }
 }

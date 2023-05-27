@@ -12,6 +12,11 @@ namespace LogicDiagram3000.Models.logicChip
         {
             get => "XorChip";
         }
-        protected override int OutSignal() => (in1Signal ^ in2Signal);
+        //protected override int OutSignal() => (in1Signal ^ in2Signal);
+        protected override void Out1()
+        {
+            if (TiedToOut1Chip != null)
+                TiedToOut1Chip.In1 = In1 ^ In2;
+        }
     }
 }

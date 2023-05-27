@@ -12,23 +12,27 @@ namespace LogicDiagram3000.Models.Connectors
     public class Connector : AbstractNotifyPropertyChanged
     {
         //new Lojic 
-        //protected object tiedToOut1Chip;
-       // protected object tiedToIn1Chip;
-        public int EntryNumberForFiling { get; set; }
+        //protected ChipToIn tiedToOut1Chip;
+        //protected ChipToIn tiedToIn1Chip;
+        protected int in1;
         public ChipToIn TiedToOut1Chip { get; set; }
         public ChipToIn TiedToIn1Chip { get; set; }
-        public int In1 { get; set; }
+        public int In1 
+        {
+            get => in1;
+            set
+            {
+                SetAndRaise(ref in1, value);
+                Out1();
+            }
+        }
         public void Out1()
         {
-            if (EntryNumberForFiling == 1)
+            if (TiedToOut1Chip != null)
             {
-                TiedToOut1Chip.In1 = In1;
+                if (TiedToOut1Chip.TiedToIn1Chip == this) TiedToOut1Chip.In1 = In1;
+                if (TiedToOut1Chip.TiedToIn2Chip == this) TiedToOut1Chip.In2 = In1;
             }
-            else if (EntryNumberForFiling == 2)
-            {
-                TiedToOut1Chip.In2 = In1;
-            }
-
         }
 
 
@@ -69,15 +73,15 @@ namespace LogicDiagram3000.Models.Connectors
             this.EndPoint += dPoint;
         }
         //signal transmission
-        protected int in1Signal;
-        public void In1Signal(int value)
-        {
-            in1Signal = value;
-            OutSignalHandlerNotify?.Invoke(OutSignal());
-        }
+       // protected int in1Signal;
+        //public void In1Signal(int value)
+        //{
+        //    in1Signal = value;
+        //    OutSignalHandlerNotify?.Invoke(OutSignal());
+       // }
 
-        protected virtual int OutSignal() => in1Signal;
-        public delegate void OutSignalHandler(int a);
-        public event OutSignalHandler? OutSignalHandlerNotify;
+       // protected virtual int OutSignal() => in1Signal;
+        //public delegate void OutSignalHandler(int a);
+       // public event OutSignalHandler? OutSignalHandlerNotify;
     }
 }

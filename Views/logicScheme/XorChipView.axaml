@@ -12,9 +12,9 @@
 		  <Canvas Height="110" Width="160" Background="Transparent">
 			  <Path Data="M 5,5 105,5 c 0,0 50,0 50,50 c 0,0 0,50 -50,50 l 0,0 -100,0 c 0,0 40,-50 0,-100 Z" Fill="White" StrokeThickness="2" Stroke="Black"/>
 			  <Path Data="M 15,5 c 0,0 50,40 0,100" StrokeThickness="2" Stroke="Black"/>
-			  <Ellipse Width="15" Height="15" Margin="10,25" Fill="DarkGreen" StrokeThickness="3" Classes="In1"/>
-			  <Ellipse Width="15" Height="15" Margin="147,50" Fill="DarkGreen" StrokeThickness="3" Classes="Out1"/>
-			  <Ellipse Width="15" Height="15" Margin="10,70" Fill="DarkGreen" StrokeThickness="3" Classes="In2"/>
+			  <Ellipse Width="15" Height="15" Margin="10,25" Fill="DarkGreen" StrokeThickness="3" Name="In1"/>
+			  <Ellipse Width="15" Height="15" Margin="147,50" Fill="DarkGreen" StrokeThickness="3" Name="Out1"/>
+			  <Ellipse Width="15" Height="15" Margin="10,70" Fill="DarkGreen" StrokeThickness="3" Name="In2"/>
 		  </Canvas>
       </ControlTemplate>
     </Setter>

@@ -15,14 +15,36 @@ namespace LogicDiagram3000.Models.logicChip
         //protected object tiedToOut1Chip;
         //protected object tiedToIn1Chip;
         //protected object tiedToIn2Chip;
+        protected int in1;
+        protected int in2;
+        public int EntryNumberForFiling { get; set; }
         public Connector TiedToOut1Chip { get; set; }
         public Connector TiedToIn1Chip { get; set; }
         public Connector TiedToIn2Chip { get; set; }
-        public int In1 { get; set; }
-        public int In2 { get; set; }
-        public void Out1()
+        public int In1
+        { 
+            get => in1;
+            set
+            {
+                //in1 = value;
+                SetAndRaise(ref in1, value);
+                Out1();
+            }
+        }
+        public int In2
         {
-            TiedToOut1Chip.In1 = 1;
+            get => in2;
+            set
+            {
+                //in2 = value;
+                SetAndRaise(ref in2, value);
+                Out1();
+            }
+        }
+        protected virtual void Out1()
+        {
+            if (TiedToOut1Chip != null)
+                TiedToOut1Chip.In1 = 0;
         }
         //
         protected bool isFocused;
@@ -33,8 +55,12 @@ namespace LogicDiagram3000.Models.logicChip
 
         public ChipToIn()
         {
-            In1SignalProperty = 0;
-            In1SignalProperty = 0;
+            EntryNumberForFiling = 0;
+            In1= 0;
+            In2= 0;
+
+            //In1SignalProperty = 0;
+            //In1SignalProperty = 0;
         }
         public bool IsFocused
         {
@@ -71,34 +97,34 @@ namespace LogicDiagram3000.Models.logicChip
         public delegate void MarginHandler(Avalonia.Point point);
         public event MarginHandler? MarginHandlerNotify;
         //signal transmission
-        protected int in1Signal;
-        protected int in2Signal;
+        //protected int in1Signal;
+       // protected int in2Signal;
         public void Dispose()
         {
-            OutSignalHandlerNotify = null;
+            //OutSignalHandlerNotify = null;
         }
-        public void In1Signal(int value)
-        {
-            In1SignalProperty = value;
-            OutSignalHandlerNotify?.Invoke(OutSignal());
-        }
-        public void In2Signal(int value)
-        {
-            In2SignalProperty = value;
-            OutSignalHandlerNotify?.Invoke(OutSignal());
-        }
-        protected virtual int OutSignal() => 0;
-        public delegate void OutSignalHandler(int a);
-        public event OutSignalHandler? OutSignalHandlerNotify;
-        protected int In1SignalProperty
-        {
-            get => in1Signal;
-            set => SetAndRaise(ref in1Signal, value);
-        }
-        protected int In2SignalProperty
-        {
-            get => in2Signal;
-            set => SetAndRaise(ref in2Signal, value);
-        }
+        //public void In1Signal(int value)
+        //{
+        //    In1SignalProperty = value;
+        //    OutSignalHandlerNotify?.Invoke(OutSignal());
+        //}
+        //public void In2Signal(int value)
+        //{
+        //    In2SignalProperty = value;
+        //    OutSignalHandlerNotify?.Invoke(OutSignal());
+        //}
+        //protected virtual int OutSignal() => 0;
+        //public delegate void OutSignalHandler(int a);
+        //public event OutSignalHandler? OutSignalHandlerNotify;
+        //protected int In1SignalProperty
+        //{
+        //    get => in1Signal;
+        //    set => SetAndRaise(ref in1Signal, value);
+       // }
+       // protected int In2SignalProperty
+        //{
+        //    get => in2Signal;
+         //   set => SetAndRaise(ref in2Signal, value);
+        //}
     }
 }
