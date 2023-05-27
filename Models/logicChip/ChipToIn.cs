@@ -81,9 +81,17 @@ namespace LogicDiagram3000.Models.logicChip
         }
         public delegate void MarginHandler(Avalonia.Point point);
         public event MarginHandler? MarginHandlerNotify;
-        public void Dispose()
+        public void ClearBindings()
         {
-            
+            if (TiedToOut1Chip != null) TiedToOut1Chip.Dispose();
+            if (TiedToIn1Chip != null) TiedToIn1Chip.Dispose();
+            if (TiedToIn2Chip != null) TiedToIn2Chip.Dispose();
+        }
+        public void Dispose()
+        {           
+            TiedToOut1Chip = null;
+            TiedToIn1Chip = null;
+            TiedToIn2Chip = null;
         }
     }
 }

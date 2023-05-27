@@ -27,7 +27,6 @@ namespace LogicDiagram3000.Models.Connectors
             }
         }
 
-
         private Point startPoint;
         private Point endPoint;
         protected bool isFocused;
@@ -63,6 +62,26 @@ namespace LogicDiagram3000.Models.Connectors
         public void ChangeEndPoint(Point dPoint)
         {
             this.EndPoint += dPoint;
+        }
+        public void ClearBindings(ChipToIn? a)
+        {
+            if (TiedToIn1Chip != null && TiedToIn1Chip != a)
+            {
+                if (TiedToIn1Chip.TiedToOut1Chip != this) TiedToIn1Chip.TiedToOut1Chip = null;
+                if (TiedToIn1Chip.TiedToIn1Chip != this) TiedToIn1Chip.TiedToIn1Chip = null;
+                if (TiedToIn1Chip.TiedToIn2Chip != this) TiedToIn1Chip.TiedToIn2Chip = null;
+            }
+            if (TiedToOut1Chip != null && TiedToIn1Chip != a)
+            {
+                if (TiedToOut1Chip.TiedToOut1Chip != this) TiedToIn1Chip.TiedToOut1Chip = null;
+                if (TiedToOut1Chip.TiedToIn1Chip != this) TiedToIn1Chip.TiedToIn1Chip = null;
+                if (TiedToOut1Chip.TiedToIn2Chip != this) TiedToIn1Chip.TiedToIn2Chip = null;
+            }
+        }
+        public void Dispose()
+        {         
+            TiedToOut1Chip = null;
+            TiedToIn1Chip = null;
         }
     }
 }

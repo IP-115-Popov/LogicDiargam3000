@@ -84,16 +84,28 @@ namespace LogicDiagram3000.Views
                     {
                         if (viewModel.CanvasList[i] is ChipToIn chipToIn)
                             if (chipToIn.IsFocused == true)
-                            {
+                            {                              
+                                if (chipToIn.TiedToIn1Chip != null) chipToIn.TiedToIn1Chip.ClearBindings(chipToIn);
+                                if (chipToIn.TiedToIn2Chip != null) chipToIn.TiedToIn2Chip.ClearBindings(chipToIn);
+                                if (chipToIn.TiedToOut1Chip != null) chipToIn.TiedToOut1Chip.ClearBindings(chipToIn);
+
                                 viewModel.CanvasList.RemoveAt(i);
+                                viewModel.CanvasList.Remove(chipToIn.TiedToIn1Chip);
+                                viewModel.CanvasList.Remove(chipToIn.TiedToIn2Chip);
+                                viewModel.CanvasList.Remove(chipToIn.TiedToOut1Chip);
+                                if (chipToIn is DemultiplexerChip demultiplexerChip) viewModel.CanvasList.Remove(demultiplexerChip.TiedToOut2Chip);
+
+                                chipToIn.Dispose();
                                 chipToIn = null;
                                 break;
                             }
                         if (viewModel.CanvasList[i] is Connector connector)
                             if (connector.IsFocused == true)
                             {
-                                viewModel.CanvasList.Remove(i);
-                                chipToIn = null;
+                                viewModel.CanvasList.RemoveAt(i);
+                                connector.ClearBindings(null);
+                                connector.Dispose();
+                                connector = null;
                                 break;
                             }
                     }
