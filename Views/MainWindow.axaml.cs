@@ -147,34 +147,37 @@ namespace LogicDiagram3000.Views
                             };
                             if (conector != null)
                             {
-                                //if (chipToIn is DemultiplexerChip)
-                                //{
-                                //    if (ellipse.Name == "Out1") ((DemultiplexerChip)chipToIn).Out1SignalHandlerNotify += conector.In1Signal;
-                                //    else if (ellipse.Name == "Out2") ((DemultiplexerChip)chipToIn).Out2SignalHandlerNotify += conector.In1Signal;
-                                //}
-                                //else 
-                                if (ellipse.Name == "Out1")
-                                {
-                                    chipToIn.TiedToOut1Chip = conector;
-                                    conector.TiedToIn1Chip = chipToIn;
-                                }
-                                else if (ellipse.Name == "Out2")
-                                {
-                                    ((DemultiplexerChip)chipToIn).TiedToOut2Chip = conector;
-                                    conector.TiedToIn1Chip = chipToIn;
-                                }
-                                else if (ellipse.Name == "In1")
-                                {
-                                    conector.TiedToOut1Chip = chipToIn;
-                                    chipToIn.TiedToIn1Chip = conector;
-                                }
-                                else if (ellipse.Name == "In2")
-                                {
-                                    conector.TiedToOut1Chip = chipToIn;
-                                    chipToIn.TiedToIn2Chip = conector;
-                                }
 
-
+                                    if (ellipse.Name == "Out1")
+                                    {
+                                        chipToIn.TiedToOut1Chip = conector;
+                                        conector.TiedToIn1Chip = chipToIn;
+                                    }
+                                    else if (ellipse.Name == "Out2")
+                                    {
+                                        ((DemultiplexerChip)chipToIn).TiedToOut2Chip = conector;
+                                        conector.TiedToIn1Chip = chipToIn;
+                                    }
+                                    else if (ellipse.Name == "In1")
+                                    {
+                                        conector.TiedToOut1Chip = chipToIn;
+                                        chipToIn.TiedToIn1Chip = conector;
+                                    }
+                                    else if (ellipse.Name == "In2")
+                                    {
+                                        conector.TiedToOut1Chip = chipToIn;
+                                        chipToIn.TiedToIn2Chip = conector;
+                                    }
+                                    else if (chipToIn is InChip inChip)
+                                    {
+                                        conector.TiedToOut1Chip = inChip;
+                                        inChip.TiedToIn1Chip = conector;
+                                    }
+                                    else if (chipToIn is IndicatorChip indicatorChip)
+                                    {
+                                        indicatorChip.TiedToOut1Chip = conector;
+                                        conector.TiedToIn1Chip = indicatorChip;
+                                    }
                                 chipToIn.MarginHandlerNotify += conector.ChangeStartPoint;
                                 viewModel.CanvasList.Add(conector);
                                 this.PointerMoved += PointerMoveDrawLine;
@@ -259,27 +262,38 @@ namespace LogicDiagram3000.Views
                 if (ellipse.DataContext is ChipToIn chipToIn)
                 {
                     Connector connector = viewModel.CanvasList[viewModel.CanvasList.Count - 1] as Connector;
-                    chipToIn.MarginHandlerNotify += connector.ChangeEndPoint;                   
-                    if (ellipse.Name == "Out1")
-                    {
-                        chipToIn.TiedToOut1Chip = connector;
-                        connector.TiedToIn1Chip = chipToIn;
-                    }
-                    else if (ellipse.Name == "Out2")
-                    {
-                        ((DemultiplexerChip)chipToIn).TiedToOut2Chip = connector;
-                        connector.TiedToIn1Chip = chipToIn;
-                    }
-                    else if (ellipse.Name == "In1")
-                    {
-                        connector.TiedToOut1Chip = chipToIn;
-                        chipToIn.TiedToIn1Chip = connector;
-                    }
-                    else if (ellipse.Name == "In2")
-                    {
-                        connector.TiedToOut1Chip = chipToIn;
-                        chipToIn.TiedToIn2Chip = connector;
-                    }
+                    chipToIn.MarginHandlerNotify += connector.ChangeEndPoint;
+
+                        if (ellipse.Name == "Out1")
+                        {
+                            chipToIn.TiedToOut1Chip = connector;
+                            connector.TiedToIn1Chip = chipToIn;
+                        }
+                        else if (ellipse.Name == "Out2")
+                        {
+                            ((DemultiplexerChip)chipToIn).TiedToOut2Chip = connector;
+                            connector.TiedToIn1Chip = chipToIn;
+                        }
+                        else if (ellipse.Name == "In1")
+                        {
+                            connector.TiedToOut1Chip = chipToIn;
+                            chipToIn.TiedToIn1Chip = connector;
+                        }
+                        else if (ellipse.Name == "In2")
+                        {
+                            connector.TiedToOut1Chip = chipToIn;
+                            chipToIn.TiedToIn2Chip = connector;
+                        }
+                        else if(chipToIn is InChip inChip)
+                        {
+                            connector.TiedToOut1Chip = inChip;
+                            inChip.TiedToIn1Chip = connector;
+                        }
+                        else if (chipToIn is IndicatorChip indicatorChip)
+                        {
+                            indicatorChip.TiedToOut1Chip = connector;
+                            connector.TiedToIn1Chip = indicatorChip;
+                        }
                     return;
                 }
             }

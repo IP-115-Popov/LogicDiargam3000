@@ -1,6 +1,8 @@
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
+using LogicDiagram3000.Models.logicChip;
+using System.Collections.ObjectModel;
 using System.Security.Claims;
 
 namespace LogicDiagram3000.Views
@@ -13,6 +15,22 @@ namespace LogicDiagram3000.Views
         {
             get => GetValue(CastomTextProperty);
             set => SetValue(CastomTextProperty, value);
+        }
+
+        public static readonly StyledProperty<ObservableCollection<InChip>> InListProperty =
+           AvaloniaProperty.Register<SchameView, ObservableCollection<InChip>>("InList");
+        public ObservableCollection<InChip> InList
+        {
+            get => GetValue(InListProperty);
+            set => SetValue(InListProperty, value);
+        }
+
+        public static readonly StyledProperty<ObservableCollection<IndicatorChip>> OutListProperty =
+           AvaloniaProperty.Register<SchameView, ObservableCollection<IndicatorChip>>("OutList");
+        public ObservableCollection<IndicatorChip> OutList
+        {
+            get => GetValue(OutListProperty);
+            set => SetValue(OutListProperty, value);
         }
     }
 }

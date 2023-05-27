@@ -8,11 +8,22 @@
   <Style Selector="controls|SchameView">
     <Setter Property="Template">
       <ControlTemplate>
-		  <Canvas Height="110" Width="110" Background="Transparent">
-			  <Rectangle Height="100" Width="100" Margin="5,5" Stroke="Black" StrokeThickness="2"/>
-			  <Ellipse Width="15" Height="15" Margin="-2,25" Fill="DarkGreen" StrokeThickness="3" Name="In1"/>
-			  <Ellipse Width="15" Height="15" Margin="-2,70" Fill="DarkGreen" StrokeThickness="3" Name="In2"/>
-			  <Ellipse Width="15" Height="15" Margin="97,50" Fill="DarkGreen" StrokeThickness="3" Name="Out1"/>
+		  <Canvas Height="210" Width="110" Background="Transparent">
+			  <Rectangle Height="200" Width="100" Margin="5,5" Stroke="Black" StrokeThickness="2"/>
+			  <ListBox Margin="5,10" Items="{TemplateBinding InList}">
+				  <ListBox.ItemTemplate>
+					  <DataTemplate>
+						  <Ellipse Width="15" Height="15" Fill="DarkGreen" StrokeThickness="3" Name="{Binding Name}"/>
+					  </DataTemplate>
+				  </ListBox.ItemTemplate>
+			  </ListBox>
+			  <ListBox Margin="70,10" Items="{TemplateBinding OutList}">
+				  <ListBox.ItemTemplate>
+					  <DataTemplate>
+						  <Ellipse Width="25" Height="25" Fill="DarkGreen" StrokeThickness="3" Name="{Binding Name}"/>
+					  </DataTemplate>
+				  </ListBox.ItemTemplate>
+			  </ListBox>
 			  <TextBlock Margin="15,45" Text="{TemplateBinding CastomText}"/>
 		  </Canvas>
       </ControlTemplate>

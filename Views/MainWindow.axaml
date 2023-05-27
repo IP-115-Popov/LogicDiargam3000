@@ -21,6 +21,8 @@
     </Design.DataContext>
 	<Window.Resources>
 		<conv:StringToThicknessConverter x:Key="stringToThicknessConverter"/>
+		<conv:CanvasListToInListConverter x:Key="canvasListToInListConverter"/>
+		<conv:CanvasListToOutListConverter x:Key="canvasListToOutListConverter"/>
 	</Window.Resources>
 	<Panel>
 	<Grid RowDefinitions="*,*,*" IsVisible="{Binding IsVisibleHelloView}">
@@ -121,8 +123,8 @@
 							  Stroke="Yellow"/>
 						</Panel>
 					</DataTemplate>
-					<DataTemplate DataType="{x:Type chip:Scheme}">
-						<views:SchameView CastomText="{Binding Name}" Focusable="True" IsFocused="{Binding IsFocused, Mode=OneWayToSource}" Margin="{Binding Margin, Converter={StaticResource stringToThicknessConverter}}"/>
+					<DataTemplate DataType="{x:Type chip:Scheme}">						
+						<views:SchameView InList="{Binding CanvasList, Converter={StaticResource canvasListToInListConverter}}" OutList="{Binding CanvasList, Converter={StaticResource canvasListToOutListConverter}}" CastomText="{Binding Name}" Focusable="True" IsFocused="{Binding IsFocused, Mode=OneWayToSource}" Margin="{Binding Margin, Converter={StaticResource stringToThicknessConverter}}"/>
 					</DataTemplate>
 				</ItemsControl.DataTemplates>
 			

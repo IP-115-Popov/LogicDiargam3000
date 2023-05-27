@@ -33,7 +33,7 @@ namespace LogicDiagram3000.Models.logicChip
         protected virtual void Out1()
         {
             if (TiedToOut1Chip != null)
-                TiedToOut1Chip.In1 = 0;
+                TiedToOut1Chip.In1 = In1;
         }
         protected bool isFocused;
         protected string? margin;
