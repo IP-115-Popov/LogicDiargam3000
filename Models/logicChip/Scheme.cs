@@ -1,4 +1,5 @@
 ﻿using DynamicData.Binding;
+using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 
@@ -13,20 +14,22 @@ namespace LogicDiagram3000.Models.logicChip
             name = "Схема";
             canvasList = new ObservableCollection<object>();
         }
-        protected override void Out1()
+        public string? TupeChip
         {
-            //if (TiedToOut1Chip != null && CanvasList != null)
-            //{
-            //    int rezShame;
-            //    InChip in1Schame = (InChip)(CanvasList.FirstOrDefault(x => x is InChip));
-            //    InChip in2Schame = (InChip)(CanvasList.FirstOrDefault(x => (x is InChip && x != in1Schame)));
-            //    in1Schame.IsSignalTrue = In1.ToString();
-            //    in2Schame.IsSignalTrue = In2.ToString();
-            //    IndicatorChip out1Schame = (IndicatorChip)(CanvasList.FirstOrDefault(x => (x is IndicatorChip)));
-            //    rezShame = out1Schame.In1;
-            //    TiedToOut1Chip.In1 = rezShame;
-            //}             
+            get => Name;
         }
+        protected override void Out1()
+        {           
+        }
+
+        public Scheme Clone()
+        {
+            Scheme clone = new Scheme();           
+            clone.name = Name;
+            clone.canvasList = CanvasList;
+            return clone;
+        }
+
         public ObservableCollection<object> CanvasList
         {
             get => canvasList;

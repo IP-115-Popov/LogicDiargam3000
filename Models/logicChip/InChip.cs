@@ -14,6 +14,11 @@ namespace LogicDiagram3000.Models.logicChip
             Name = seconds.ToString();
             IsSignalTrue = "0";
         }
+        public Scheme PairantScheme 
+        { 
+            get; 
+            set; 
+        }
         public string Name
         {
             get => name;

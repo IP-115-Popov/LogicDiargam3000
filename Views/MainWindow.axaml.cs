@@ -147,7 +147,7 @@ namespace LogicDiagram3000.Views
                             };
                             if (conector != null)
                             {
-
+                                    chipToIn.MarginHandlerNotify += conector.ChangeStartPoint;
                                     if (ellipse.Name == "Out1")
                                     {
                                         chipToIn.TiedToOut1Chip = conector;
@@ -170,15 +170,17 @@ namespace LogicDiagram3000.Views
                                     }
                                     else if (chipToIn is InChip inChip)
                                     {
+                                        inChip.PairantScheme.MarginHandlerNotify += conector.ChangeStartPoint;
                                         conector.TiedToOut1Chip = inChip;
                                         inChip.TiedToIn1Chip = conector;
                                     }
                                     else if (chipToIn is IndicatorChip indicatorChip)
                                     {
+                                        indicatorChip.PairantScheme.MarginHandlerNotify += conector.ChangeStartPoint;
                                         indicatorChip.TiedToOut1Chip = conector;
                                         conector.TiedToIn1Chip = indicatorChip;
                                     }
-                                chipToIn.MarginHandlerNotify += conector.ChangeStartPoint;
+                                
                                 viewModel.CanvasList.Add(conector);
                                 this.PointerMoved += PointerMoveDrawLine;
                                 this.PointerReleased += PointerPressedReleasedDrawLine;
@@ -263,7 +265,6 @@ namespace LogicDiagram3000.Views
                 {
                     Connector connector = viewModel.CanvasList[viewModel.CanvasList.Count - 1] as Connector;
                     chipToIn.MarginHandlerNotify += connector.ChangeEndPoint;
-
                         if (ellipse.Name == "Out1")
                         {
                             chipToIn.TiedToOut1Chip = connector;
@@ -286,11 +287,13 @@ namespace LogicDiagram3000.Views
                         }
                         else if(chipToIn is InChip inChip)
                         {
+                            inChip.PairantScheme.MarginHandlerNotify += connector.ChangeEndPoint;
                             connector.TiedToOut1Chip = inChip;
                             inChip.TiedToIn1Chip = connector;
                         }
                         else if (chipToIn is IndicatorChip indicatorChip)
                         {
+                            indicatorChip.PairantScheme.MarginHandlerNotify += connector.ChangeEndPoint;
                             indicatorChip.TiedToOut1Chip = connector;
                             connector.TiedToIn1Chip = indicatorChip;
                         }

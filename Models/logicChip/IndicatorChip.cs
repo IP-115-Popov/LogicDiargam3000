@@ -13,6 +13,7 @@ namespace LogicDiagram3000.Models.logicChip
             Name = seconds.ToString();
             In1 = 0;
         }
+        public Scheme PairantScheme { get; set; }
         protected override void Out1()
         {
             if (TiedToOut1Chip != null)

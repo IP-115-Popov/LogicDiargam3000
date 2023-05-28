@@ -117,6 +117,7 @@
 					<DataTemplate DataType="{x:Type conectors:Connector}">
 						<Panel Focusable="True" IsFocused="{Binding IsFocused, Mode=OneWayToSource}" >
 							  <Line 
+							  Margin="3,-3"
 							  StartPoint="{Binding StartPoint}"
 							  EndPoint="{Binding EndPoint}"
 							  StrokeThickness="5"

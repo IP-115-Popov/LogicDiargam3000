@@ -172,10 +172,22 @@ namespace LogicDiagram3000.ViewModels
             });
             else if (SelectedScheme != null)
             {
-                SelectedScheme.Margin = AStrting;
-                SelectedScheme.Height = 128;
-                SelectedScheme.Width = 128;
-                CanvasList.Add(SelectedScheme);
+                Scheme scheme= SelectedScheme.Clone();
+                foreach (var i in scheme.CanvasList)
+                {
+                    if (i is InChip inChip)
+                    {
+                        inChip.PairantScheme = scheme;
+                    }
+                    else if (i is IndicatorChip indicatorChip)
+                    {
+                        indicatorChip.PairantScheme = scheme;
+                    }
+                }
+                scheme.Margin = AStrting;
+                scheme.Height = 128;
+                scheme.Width = 128;
+                CanvasList.Add(scheme);
             }
         }
         public void Load(string path)
