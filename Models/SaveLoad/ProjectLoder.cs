@@ -38,6 +38,7 @@ namespace LogicDiagram3000.Models.SaveLoad
             }
             return rez;
         }
+        //соединяем конектим
         //распаковка схемы
         private Scheme? SchameToChipList(ShameToSaveLoad scheme)
         {
@@ -175,7 +176,7 @@ namespace LogicDiagram3000.Models.SaveLoad
                     
                 };
                 if (scheme.StartPoint != null) a.StartPoint = Avalonia.Point.Parse(scheme.StartPoint);
-                if (scheme.StartPoint != null) a.EndPoint = Avalonia.Point.Parse(scheme.StartPoint);
+                if (scheme.EndPoint != null) a.EndPoint = Avalonia.Point.Parse(scheme.EndPoint);
                 rez = a;
             }
             return rez;
