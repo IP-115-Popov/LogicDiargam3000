@@ -7,6 +7,7 @@ using DynamicData;
 using LogicDiagram3000.Models.Connectors;
 using LogicDiagram3000.Models.logicChip;
 using LogicDiagram3000.ViewModels;
+using LogicDiagram3000.Models.SaveLoad;
 using System;
 using System.Linq;
 
@@ -55,7 +56,9 @@ namespace LogicDiagram3000.Views
             {
                 if (this.DataContext is MainWindowViewModel dataContext)
                 {
-                    dataContext.Load(path[0]);
+                    ProjectLoder projectLoder = new ProjectLoder();
+                    dataContext.SchemeList.Clear();
+                    dataContext.SchemeList = projectLoder.Load(path[0]);
                 }
             }
         }
@@ -73,7 +76,8 @@ namespace LogicDiagram3000.Views
             {
                 if (this.DataContext is MainWindowViewModel dataContext)
                 {
-                    dataContext.Save(path);
+                    ProjectSaver projectSaver = new ProjectSaver();
+                    projectSaver.Save(path, dataContext.SchemeList);
                 }
             }
         }

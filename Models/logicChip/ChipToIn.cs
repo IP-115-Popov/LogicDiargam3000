@@ -6,6 +6,13 @@ namespace LogicDiagram3000.Models.logicChip
 {
     public abstract class ChipToIn : AbstractNotifyPropertyChanged, IDisposable
     {
+        //Save
+        public int Id { get; set; }
+        public int IdIn1 { get; set; }
+        public int IdOut1 { get; set; }
+        public int IdIn2 { get; set; }
+        public int IdOut2 { get; set; }
+        //
         protected int in1;
         protected int in2;
         public int EntryNumberForFiling { get; set; }
@@ -43,6 +50,14 @@ namespace LogicDiagram3000.Models.logicChip
 
         public ChipToIn()
         {
+            TimeSpan timeOfUtcDay = DateTime.UtcNow.TimeOfDay;
+            double seconds = timeOfUtcDay.TotalSeconds;
+            Id = Convert.ToInt32(seconds * 10000);
+            IdIn1 = 0;
+            IdOut1 = 0;
+            IdIn2 = 0;
+            IdOut2 = 0;
+
             EntryNumberForFiling = 0;
             In1= 0;
             In2= 0;

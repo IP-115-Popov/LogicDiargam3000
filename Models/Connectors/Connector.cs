@@ -1,11 +1,26 @@
 ﻿using Avalonia;
 using DynamicData.Binding;
 using LogicDiagram3000.Models.logicChip;
+using System;
 
 namespace LogicDiagram3000.Models.Connectors
 {
     public class Connector : AbstractNotifyPropertyChanged
     {
+        public Connector()
+        {
+            TimeSpan timeOfUtcDay = DateTime.UtcNow.TimeOfDay;
+            double seconds = timeOfUtcDay.TotalSeconds;
+            Id = Convert.ToInt32(seconds * 10000);
+            IdIn1 = 0;
+            IdOut1 = 0;
+        }
+
+        //Save
+        public int Id { get; set; }
+        public int IdIn1 { get; set; }
+        public int IdOut1 { get; set; }
+        //
         protected int in1;
         public ChipToIn TiedToOut1Chip { get; set; }
         public ChipToIn TiedToIn1Chip { get; set; }

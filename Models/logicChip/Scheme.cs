@@ -7,6 +7,7 @@ namespace LogicDiagram3000.Models.logicChip
 {
     public class Scheme : ChipToIn
     {
+        public int Id { get; set; }
         private string name;
         private ObservableCollection<object> canvasList;
         public Scheme()

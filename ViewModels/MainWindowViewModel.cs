@@ -190,8 +190,8 @@ namespace LogicDiagram3000.ViewModels
                 CanvasList.Add(scheme);
             }
         }
-        public void Load(string path)
-        {
+       // public void Load(string path)
+        //{
             //CanvasList.Clear();
             //XmlSerializer xmlSerializer = new XmlSerializer(typeof(ToSerialisedListConverter));
             //using (FileStream fs = new FileStream(path, FileMode.OpenOrCreate))
@@ -199,9 +199,9 @@ namespace LogicDiagram3000.ViewModels
             //    ToSerialisedListConverter toSerialisedListConverter = xmlSerializer.Deserialize(fs) as ToSerialisedListConverter;
             //    CanvasList = toSerialisedListConverter.ConverterBack();
             //}
-        }
-        public void Save(string path)
-        {
+       // }
+       // public void Save(string path)
+       // {
             //ToSerialisedListConverter toSerialisedListConverter = new ToSerialisedListConverter();
             //toSerialisedListConverter.Converter(canvasList);
 
@@ -210,6 +210,6 @@ namespace LogicDiagram3000.ViewModels
             //{
             //    xmlSerializer.Serialize(fs, toSerialisedListConverter);
             //}
-        }
+       // }
     }
 }
