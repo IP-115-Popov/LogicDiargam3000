@@ -29,7 +29,7 @@
 		<Button HorizontalAlignment="Center" Grid.Row="0" Grid.Column="0" Content="Создать" Click="CreateProject"/>
 		<Button HorizontalAlignment="Center" Grid.Row="0" Grid.Column="1" Content="Открыть" Click="LoadXml"/>
 		<Button HorizontalAlignment="Center" Grid.Row="0" Grid.Column="2" Content="Выйти" Click="Exit"/>
-		<ListBox Grid.Row="1" Grid.Column="1" Items="{Binding ProjectList}" SelectedItem="{Binding SelectedProject}" DoubleTapped="DoubleTappedOnProject">
+		<ListBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Items="{Binding ProjectList}" SelectedItem="{Binding SelectedProject}" DoubleTapped="DoubleTappedOnProject">
 			<ListBox.ItemTemplate>
 				<DataTemplate>
 					<TextBlock Text="{Binding}"/>
