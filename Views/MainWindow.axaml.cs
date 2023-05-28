@@ -187,15 +187,21 @@ namespace LogicDiagram3000.Views
                                     }
                                     else if (chipToIn is InChip inChip)
                                     {
-                                        inChip.PairantScheme.MarginHandlerNotify += conector.ChangeStartPoint;
-                                        conector.TiedToOut1Chip = inChip;
-                                        inChip.TiedToIn1Chip = conector;
+                                        if (inChip.PairantScheme != null)
+                                        {
+                                            inChip.PairantScheme.MarginHandlerNotify += conector.ChangeStartPoint;
+                                            conector.TiedToOut1Chip = inChip;
+                                            inChip.TiedToIn1Chip = conector;
+                                        }
                                     }
                                     else if (chipToIn is IndicatorChip indicatorChip)
                                     {
-                                        indicatorChip.PairantScheme.MarginHandlerNotify += conector.ChangeStartPoint;
-                                        indicatorChip.TiedToOut1Chip = conector;
-                                        conector.TiedToIn1Chip = indicatorChip;
+                                        if (indicatorChip.PairantScheme != null)
+                                        {
+                                            indicatorChip.PairantScheme.MarginHandlerNotify += conector.ChangeStartPoint;
+                                            indicatorChip.TiedToOut1Chip = conector;
+                                            conector.TiedToIn1Chip = indicatorChip;
+                                        }
                                     }
                                 
                                 viewModel.CanvasList.Add(conector);

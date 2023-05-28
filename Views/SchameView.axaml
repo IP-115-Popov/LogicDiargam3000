@@ -10,21 +10,33 @@
       <ControlTemplate>
 		  <Canvas Height="210" Width="110" Background="Transparent">
 			  <Rectangle Height="200" Width="100" Margin="5,5" Stroke="Black" StrokeThickness="2"/>
-			  <ListBox Margin="5,10" Items="{TemplateBinding InList}">
-				  <ListBox.ItemTemplate>
+			  <ItemsControl Margin="5,10" Items="{TemplateBinding InList}">
+				  <ItemsControl.ItemsPanel>
+					  <ItemsPanelTemplate>
+						  <StackPanel  Background="Yellow"/>
+					  </ItemsPanelTemplate>
+				  </ItemsControl.ItemsPanel>
+				  <ItemsControl.DataTemplates>
 					  <DataTemplate>
 						  <Ellipse Width="15" Height="15" Fill="DarkGreen" StrokeThickness="3" Name="{Binding Name}"/>
 					  </DataTemplate>
-				  </ListBox.ItemTemplate>
-			  </ListBox>
-			  <ListBox Margin="70,10" Items="{TemplateBinding OutList}">
-				  <ListBox.ItemTemplate>
+				  </ItemsControl.DataTemplates>
+			  </ItemsControl>
+			  <ItemsControl Margin="95,10"  Items="{TemplateBinding OutList}">
+				  <ItemsControl.ItemsPanel>
+					  <ItemsPanelTemplate>
+						  <StackPanel  Background="RosyBrown"/>
+					  </ItemsPanelTemplate>
+				  </ItemsControl.ItemsPanel>
+				  <ItemsControl.DataTemplates>
 					  <DataTemplate>
-						  <Ellipse Width="25" Height="25" Fill="DarkGreen" StrokeThickness="3" Name="{Binding Name}"/>
+						  <Ellipse Width="15" Height="15" Fill="Cyan" StrokeThickness="3" Name="{Binding Name}"/>
 					  </DataTemplate>
-				  </ListBox.ItemTemplate>
-			  </ListBox>
+				  </ItemsControl.DataTemplates>
+			  </ItemsControl>
+			 
 			  <TextBlock Margin="15,45" Text="{TemplateBinding CastomText}"/>
+			  
 		  </Canvas>
       </ControlTemplate>
     </Setter>
