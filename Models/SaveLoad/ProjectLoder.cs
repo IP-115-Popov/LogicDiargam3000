@@ -1,4 +1,5 @@
 ﻿using Avalonia.Rendering.SceneGraph;
+using DynamicData;
 using LogicDiagram3000.Models.Connectors;
 using LogicDiagram3000.Models.logicChip;
 using System;
@@ -20,17 +21,17 @@ namespace LogicDiagram3000.Models.SaveLoad
             ObservableCollection<Scheme> ListToLoad;
             XmlSerializer xmlSerializer = new XmlSerializer(typeof(List<ShameToSaveLoad>));
             using (FileStream fs = new FileStream(path, FileMode.OpenOrCreate))
-            {               
+            {
                 List<ShameToSaveLoad> rez = xmlSerializer.Deserialize(fs) as List<ShameToSaveLoad>;
                 ListToLoad = RestoreTies(Unpacking(rez));
             }
             return ListToLoad;
-        }       
+        }
         //перебор глобальных схем левых
         private ObservableCollection<Scheme> Unpacking(List<ShameToSaveLoad> shameToSaveLoads)
         {
-            ObservableCollection<Scheme> rez= new ObservableCollection<Scheme>();
-            foreach(ShameToSaveLoad scheme in shameToSaveLoads)
+            ObservableCollection<Scheme> rez = new ObservableCollection<Scheme>();
+            foreach (ShameToSaveLoad scheme in shameToSaveLoads)
             {
                 //собераем в список все глобальные схемы
                 if (scheme.Tupe == "Схема")
@@ -55,7 +56,7 @@ namespace LogicDiagram3000.Models.SaveLoad
         private ObservableCollection<object> SchameChipList(List<ShameToSaveLoad> shameToSaveLoads)
         {
             ObservableCollection<object> schameChipList = new ObservableCollection<object>();
-            foreach(ShameToSaveLoad i in shameToSaveLoads)
+            foreach (ShameToSaveLoad i in shameToSaveLoads)
             {
                 schameChipList.Add(ChipSaveToChip(i));
             }
@@ -72,7 +73,7 @@ namespace LogicDiagram3000.Models.SaveLoad
                     Margin = scheme.Margin,
                     Width = scheme.Width,
                     Height = scheme.Height,
-                    IdIn1= scheme.IdIn1,
+                    IdIn1 = scheme.IdIn1,
                     IdIn2 = scheme.IdIn2,
                     IdOut1 = scheme.IdOut1,
                     IdOut2 = scheme.IdOut2,
@@ -173,7 +174,7 @@ namespace LogicDiagram3000.Models.SaveLoad
                     Id = scheme.Id,
                     IdIn1 = scheme.IdIn1,
                     IdOut1 = scheme.IdOut1,
-                    
+
                 };
                 if (scheme.StartPoint != null) a.StartPoint = Avalonia.Point.Parse(scheme.StartPoint);
                 if (scheme.EndPoint != null) a.EndPoint = Avalonia.Point.Parse(scheme.EndPoint);
@@ -186,99 +187,202 @@ namespace LogicDiagram3000.Models.SaveLoad
         {
             //перебираю главные схемы для вотановления связей
             //надо востановить только глабвальные схемы
-            foreach(Scheme scheme in schemes)
+            ObservableCollection<object> allchip = new ObservableCollection<object>();
+            foreach (Scheme scheme in schemes)
             {
-                foreach(object i in scheme.CanvasList)
+                    allchip.AddRange(scheme.CanvasList);
+            }
+            foreach (object i in allchip)
+            {
+                if (i is not Scheme)
                 {
-                    if (i is not Scheme)
+                    if (i is ChipToIn chip)
                     {
-                        if (i is ChipToIn chip)
+                        Connector In1Connector = (Connector)((allchip).FirstOrDefault(
+                            x =>
+                            {
+                                if (x is Connector connector)
+                                {
+                                    if (connector.Id == chip.IdIn1)
+                                        return true;
+                                }
+                                return false;
+                            }
+                            ));
+                        if (In1Connector != null)
                         {
-                            Connector In1Connector = (Connector)((scheme.CanvasList).FirstOrDefault(
-                                x => 
-                                {
-                                    if (x is Connector connector)
-                                    {
-                                        if (connector.Id == chip.IdIn1)
-                                            return true;
-                                    }
-                                    return false;
-                                }
-                                ));
-                            if (In1Connector != null)
+                            //Restore Muve connect
+                            chip.MarginHandlerNotify += In1Connector.ChangeEndPoint;
+                            //Restore Logic
+                            chip.TiedToIn1Chip = In1Connector;
+                            In1Connector.TiedToOut1Chip = chip;
+                        }
+                        Connector In2Connector = (Connector)((allchip).FirstOrDefault(
+                            x =>
                             {
-                                //Restore Muve connect
-                                chip.MarginHandlerNotify += In1Connector.ChangeEndPoint;
-                                //Restore Logic
-                                chip.TiedToIn1Chip = In1Connector;
-                                In1Connector.TiedToOut1Chip = chip;
-                            }                            
-                            Connector In2Connector = (Connector)((scheme.CanvasList).FirstOrDefault(
-                                x =>
+                                if (x is Connector connector)
                                 {
-                                    if (x is Connector connector)
-                                    {
-                                        if (connector.Id == chip.IdIn2)
-                                            return true;
-                                    }
-                                    return false;
+                                    if (connector.Id == chip.IdIn2)
+                                        return true;
                                 }
-                                ));
-                            if (In2Connector != null)
-                            {
-                                //Restore Muve connect
-                                chip.MarginHandlerNotify += In2Connector.ChangeEndPoint;
-                                //Restore Logic
-                                chip.TiedToIn2Chip = In2Connector;
-                                In2Connector.TiedToOut1Chip = chip;
+                                return false;
                             }
+                            ));
+                        if (In2Connector != null)
+                        {
+                            //Restore Muve connect
+                            chip.MarginHandlerNotify += In2Connector.ChangeEndPoint;
+                            //Restore Logic
+                            chip.TiedToIn2Chip = In2Connector;
+                            In2Connector.TiedToOut1Chip = chip;
+                        }
 
-                            Connector Out1Connector = (Connector)((scheme.CanvasList).FirstOrDefault(
-                                x =>
+                        Connector Out1Connector = (Connector)((allchip).FirstOrDefault(
+                            x =>
+                            {
+                                if (x is Connector connector)
                                 {
-                                    if (x is Connector connector)
-                                    {
-                                        if (connector.Id == chip.IdOut1)
-                                            return true;
-                                    }
-                                    return false;
+                                    if (connector.Id == chip.IdOut1)
+                                        return true;
                                 }
-                                ));
-                            if (Out1Connector != null)
+                                return false;
+                            }
+                            ));
+                        if (Out1Connector != null)
+                        {
+                            //Restore Muve connect
+                            chip.MarginHandlerNotify += Out1Connector.ChangeStartPoint;
+                            //Restore Logic
+                            chip.TiedToOut1Chip = Out1Connector;
+                            Out1Connector.TiedToIn1Chip = chip;
+                        }
+                        if (chip is DemultiplexerChip demultiplexerChip)
+                        {
+                            Connector Out2Connector = (Connector)((allchip).FirstOrDefault(
+                            x =>
+                            {
+                                if (x is Connector connector)
+                                {
+                                    if (connector.Id == demultiplexerChip.IdOut2)
+                                        return true;
+                                }
+                                return false;
+                            }
+                            ));
+                            if (Out2Connector != null)
                             {
                                 //Restore Muve connect
-                                chip.MarginHandlerNotify += Out1Connector.ChangeStartPoint;
+                                chip.MarginHandlerNotify += Out2Connector.ChangeStartPoint;
                                 //Restore Logic
-                                chip.TiedToOut1Chip = Out1Connector;
-                                Out1Connector.TiedToIn1Chip = chip;
+                                demultiplexerChip.TiedToOut2Chip = Out2Connector;
+                                Out2Connector.TiedToIn1Chip = demultiplexerChip;
                             }
-                            if (chip is DemultiplexerChip demultiplexerChip)
-                            {
-                                Connector Out2Connector = (Connector)((scheme.CanvasList).FirstOrDefault(
-                                x =>
-                                {
-                                    if (x is Connector connector)
-                                    {
-                                        if (connector.Id == demultiplexerChip.IdOut2)
-                                            return true;
-                                    }
-                                    return false;
-                                }
-                                ));
-                                if (Out2Connector != null)
-                                {
-                                    //Restore Muve connect
-                                    chip.MarginHandlerNotify += Out2Connector.ChangeStartPoint;
-                                    //Restore Logic
-                                    demultiplexerChip.TiedToOut2Chip = Out2Connector;
-                                    Out2Connector.TiedToIn1Chip = demultiplexerChip;
-                                }
-                            }    
                         }
                     }
                 }
             }
             return schemes;
+            //ObservableCollection<object> allchip = new ;
+            //foreach (Scheme scheme in schemes)
+            //{
+            //    foreach (ObservableCollection<object> i in scheme.CanvasList)
+            //    {
+            //        allchip.AddRange(i);
+            //    }
+            //}
+            //foreach (Scheme scheme in schemes)
+            //{
+            //    foreach (object i in scheme.CanvasList)
+            //    {
+            //        if (i is not Scheme)
+            //        {
+            //            if (i is ChipToIn chip)
+            //            {
+            //                Connector In1Connector = (Connector)((scheme.CanvasList).FirstOrDefault(
+            //                    x =>
+            //                    {
+            //                        if (x is Connector connector)
+            //                        {
+            //                            if (connector.Id == chip.IdIn1)
+            //                                return true;
+            //                        }
+            //                        return false;
+            //                    }
+            //                    ));
+            //                if (In1Connector != null)
+            //                {
+            //                    //Restore Muve connect
+            //                    chip.MarginHandlerNotify += In1Connector.ChangeEndPoint;
+            //                    //Restore Logic
+            //                    chip.TiedToIn1Chip = In1Connector;
+            //                    In1Connector.TiedToOut1Chip = chip;
+            //                }
+            //                Connector In2Connector = (Connector)((scheme.CanvasList).FirstOrDefault(
+            //                    x =>
+            //                    {
+            //                        if (x is Connector connector)
+            //                        {
+            //                            if (connector.Id == chip.IdIn2)
+            //                                return true;
+            //                        }
+            //                        return false;
+            //                    }
+            //                    ));
+            //                if (In2Connector != null)
+            //                {
+            //                    //Restore Muve connect
+            //                    chip.MarginHandlerNotify += In2Connector.ChangeEndPoint;
+            //                    //Restore Logic
+            //                    chip.TiedToIn2Chip = In2Connector;
+            //                    In2Connector.TiedToOut1Chip = chip;
+            //                }
+
+            //                Connector Out1Connector = (Connector)((scheme.CanvasList).FirstOrDefault(
+            //                    x =>
+            //                    {
+            //                        if (x is Connector connector)
+            //                        {
+            //                            if (connector.Id == chip.IdOut1)
+            //                                return true;
+            //                        }
+            //                        return false;
+            //                    }
+            //                    ));
+            //                if (Out1Connector != null)
+            //                {
+            //                    //Restore Muve connect
+            //                    chip.MarginHandlerNotify += Out1Connector.ChangeStartPoint;
+            //                    //Restore Logic
+            //                    chip.TiedToOut1Chip = Out1Connector;
+            //                    Out1Connector.TiedToIn1Chip = chip;
+            //                }
+            //                if (chip is DemultiplexerChip demultiplexerChip)
+            //                {
+            //                    Connector Out2Connector = (Connector)((scheme.CanvasList).FirstOrDefault(
+            //                    x =>
+            //                    {
+            //                        if (x is Connector connector)
+            //                        {
+            //                            if (connector.Id == demultiplexerChip.IdOut2)
+            //                                return true;
+            //                        }
+            //                        return false;
+            //                    }
+            //                    ));
+            //                    if (Out2Connector != null)
+            //                    {
+            //                        //Restore Muve connect
+            //                        chip.MarginHandlerNotify += Out2Connector.ChangeStartPoint;
+            //                        //Restore Logic
+            //                        demultiplexerChip.TiedToOut2Chip = Out2Connector;
+            //                        Out2Connector.TiedToIn1Chip = demultiplexerChip;
+            //                    }
+            //                }
+            //            }
+            //        }
+            //    }
+            //}
+            //return schemes;
         }
     }
 }

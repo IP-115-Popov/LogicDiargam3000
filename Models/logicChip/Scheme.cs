@@ -17,7 +17,7 @@ namespace LogicDiagram3000.Models.logicChip
         }
         public string? TupeChip
         {
-            get => Name;
+            get => "Схема";
         }
         protected override void Out1()
         {           
