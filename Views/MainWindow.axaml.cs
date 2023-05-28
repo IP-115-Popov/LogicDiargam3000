@@ -10,6 +10,7 @@ using LogicDiagram3000.ViewModels;
 using LogicDiagram3000.Models.SaveLoad;
 using System;
 using System.Linq;
+using System.IO;
 
 namespace LogicDiagram3000.Views
 {
@@ -24,6 +25,23 @@ namespace LogicDiagram3000.Views
             if (this.DataContext is MainWindowViewModel viewModel)
             {
                 viewModel.EditableScheme = viewModel.SelectedScheme;
+            }
+        }
+        private async void DoubleTappedOnProject(object? sender, RoutedEventArgs routedEventArgs)
+        {
+            if (this.DataContext is MainWindowViewModel dataContext)
+            {             
+                if (dataContext.SelectedProject != null)
+                {
+                    ProjectLoder projectLoder = new ProjectLoder();
+                    dataContext.SchemeList.Clear();
+                    dataContext.SchemeList = projectLoder.Load(dataContext.SelectedProject);
+                }
+                if (this.DataContext is MainWindowViewModel viewModel)
+                {
+                    viewModel.IsVisibleHelloView = false;
+                    viewModel.IsVisibleProjectView = true;
+                }
             }
         }
         //Menu
@@ -61,6 +79,11 @@ namespace LogicDiagram3000.Views
                     dataContext.SchemeList = projectLoder.Load(path[0]);
                 }
             }
+            if (this.DataContext is MainWindowViewModel viewModel)
+            {
+                viewModel.IsVisibleHelloView = false;
+                viewModel.IsVisibleProjectView = true;
+            }
         }
         private async void SaveXml(object sender, RoutedEventArgs eventArgs)
         {
@@ -78,6 +101,7 @@ namespace LogicDiagram3000.Views
                 {
                     ProjectSaver projectSaver = new ProjectSaver();
                     projectSaver.Save(path, dataContext.SchemeList);
+                    SaveListProject.Save(path);
                 }
             }
         }

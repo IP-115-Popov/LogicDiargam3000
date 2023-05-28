@@ -1,5 +1,6 @@
 using Avalonia;
 using LogicDiagram3000.Models.logicChip;
+using LogicDiagram3000.Models.SaveLoad;
 using ReactiveUI;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,8 @@ namespace LogicDiagram3000.ViewModels
 {
     public class MainWindowViewModel : ViewModelBase
     {
+        private List<string> projectList;
+        private string selectedProject;
         private bool addChipDraw;
         private bool orChipDraw;
         private bool notChipDraw;
@@ -45,6 +48,17 @@ namespace LogicDiagram3000.ViewModels
             SchemeList.Add(new Scheme());
             CanvasList = new ObservableCollection<object>();
             CanvasList = EditableScheme.CanvasList;
+            ProjectList = LoadListProject.load();
+        }
+        public List<string> ProjectList
+        {
+            get => projectList;
+            set => this.RaiseAndSetIfChanged(ref projectList, value);
+        }
+        public string SelectedProject
+        {
+            get => selectedProject;
+            set => this.RaiseAndSetIfChanged(ref selectedProject, value);
         }
         public bool IsVisibleHelloView
         {

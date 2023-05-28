@@ -25,11 +25,18 @@
 		<conv:CanvasListToOutListConverter x:Key="canvasListToOutListConverter"/>
 	</Window.Resources>
 	<Panel>
-	<Grid RowDefinitions="*,*,*" IsVisible="{Binding IsVisibleHelloView}">
-		<Button HorizontalAlignment="Center" Grid.Row="0" Content="Создать" Click="CreateProject"/>
-		<Button HorizontalAlignment="Center" Grid.Row="1" Content="Открыть" Click="LoadXml"/>
-		<Button HorizontalAlignment="Center" Grid.Row="2" Content="Выйти" Click="Exit"/>
-	</Grid>
+	<Grid ColumnDefinitions="*,*,*" RowDefinitions="*,*" IsVisible="{Binding IsVisibleHelloView}">
+		<Button HorizontalAlignment="Center" Grid.Row="0" Grid.Column="0" Content="Создать" Click="CreateProject"/>
+		<Button HorizontalAlignment="Center" Grid.Row="0" Grid.Column="1" Content="Открыть" Click="LoadXml"/>
+		<Button HorizontalAlignment="Center" Grid.Row="0" Grid.Column="2" Content="Выйти" Click="Exit"/>
+		<ListBox Grid.Row="1" Grid.Column="1" Items="{Binding ProjectList}" SelectedItem="{Binding SelectedProject}" DoubleTapped="DoubleTappedOnProject">
+			<ListBox.ItemTemplate>
+				<DataTemplate>
+					<TextBlock Text="{Binding}"/>
+				</DataTemplate>
+			</ListBox.ItemTemplate>
+		</ListBox>
+		</Grid>
 	<Grid RowDefinitions="0.1*,*" Height="{Binding $parent[Window].Height}" ShowGridLines="True" IsVisible="{Binding IsVisibleProjectView}">
 		<Grid Width="{Binding $parent[Window].Width}" Grid.Row="0" ColumnDefinitions="*,*,*,*,*,*,*,*,*,*">
 			<Menu Grid.Column="0">

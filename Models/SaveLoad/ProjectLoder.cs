@@ -267,6 +267,9 @@ namespace LogicDiagram3000.Models.SaveLoad
                                 ));
                                 if (Out2Connector != null)
                                 {
+                                    //Restore Muve connect
+                                    chip.MarginHandlerNotify += Out2Connector.ChangeStartPoint;
+                                    //Restore Logic
                                     demultiplexerChip.TiedToOut2Chip = Out2Connector;
                                     Out2Connector.TiedToIn1Chip = demultiplexerChip;
                                 }
