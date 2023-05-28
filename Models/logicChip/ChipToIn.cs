@@ -52,7 +52,7 @@ namespace LogicDiagram3000.Models.logicChip
             get => isFocused;
             set
             {
-               if (isFocused != value) SetAndRaise(ref isFocused, value);
+                    if (isFocused != value) isFocused = value;
             }
         }
         public string? Margin
