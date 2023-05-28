@@ -22,7 +22,7 @@ namespace LogicDiagram3000.Models.SaveLoad
             using (FileStream fs = new FileStream(path, FileMode.OpenOrCreate))
             {               
                 List<ShameToSaveLoad> rez = xmlSerializer.Deserialize(fs) as List<ShameToSaveLoad>;
-                ListToLoad = Unpacking(rez);
+                ListToLoad = RestoreTies(Unpacking(rez));
             }
             return ListToLoad;
         }       
@@ -180,6 +180,74 @@ namespace LogicDiagram3000.Models.SaveLoad
                 rez = a;
             }
             return rez;
+        }
+        //востановить связи
+        private ObservableCollection<Scheme> RestoreTies(ObservableCollection<Scheme> schemes)
+        {
+            //перебираю главные схемы для вотановления связей
+            //надо востановить только глабвальные схемы
+            foreach(Scheme scheme in schemes)
+            {
+                foreach(object i in scheme.CanvasList)
+                {
+                    if (i is not Scheme)
+                    {
+                        if (i is ChipToIn chip)
+                        {
+                            Connector In1Connector = (Connector)((scheme.CanvasList).FirstOrDefault(
+                                x => 
+                                {
+                                    if (x is Connector connector)
+                                    {
+                                        if (connector.Id == chip.IdIn1)
+                                            return true;
+                                    }
+                                    return false;
+                                }
+                                ));
+                            if (In1Connector != null)
+                            {
+                                chip.TiedToIn1Chip = In1Connector;
+                                In1Connector.TiedToOut1Chip = chip;
+                            }                            
+                            Connector In2Connector = (Connector)((scheme.CanvasList).FirstOrDefault(
+                                x =>
+                                {
+                                    if (x is Connector connector)
+                                    {
+                                        if (connector.Id == chip.IdIn2)
+                                            return true;
+                                    }
+                                    return false;
+                                }
+                                ));
+                            if (In2Connector != null)
+                            {
+                                chip.TiedToIn2Chip = In2Connector;
+                                In2Connector.TiedToOut1Chip = chip;
+                            }
+
+                            Connector Out1Connector = (Connector)((scheme.CanvasList).FirstOrDefault(
+                                x =>
+                                {
+                                    if (x is Connector connector)
+                                    {
+                                        if (connector.Id == chip.IdOut1)
+                                            return true;
+                                    }
+                                    return false;
+                                }
+                                ));
+                            if (Out1Connector != null)
+                            {
+                                chip.TiedToOut1Chip = Out1Connector;
+                                Out1Connector.TiedToIn1Chip = chip;
+                            }
+                        }
+                    }
+                }
+            }
+            return schemes;
         }
     }
 }
