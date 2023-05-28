@@ -91,7 +91,24 @@ namespace LogicDiagram3000.Views
                     {
                         if (viewModel.CanvasList[i] is ChipToIn chipToIn)
                             if (chipToIn.IsFocused == true)
-                            {                              
+                            {   if (chipToIn is Scheme scheme)
+                                {
+                                    foreach(var item in scheme.CanvasList)
+                                    {
+                                        if (item is InChip inChip)
+                                        {
+                                            if (inChip.TiedToIn1Chip != null) inChip.TiedToIn1Chip.ClearBindings(inChip);
+                                            viewModel.CanvasList.Remove(inChip.TiedToIn1Chip);
+                                            inChip.TiedToIn1Chip = null;                                          
+                                        }
+                                        if (item is IndicatorChip indicatorChip)
+                                        { 
+                                            if (indicatorChip.TiedToOut1Chip != null) indicatorChip.TiedToOut1Chip.ClearBindings(indicatorChip);
+                                            viewModel.CanvasList.Remove(indicatorChip.TiedToOut1Chip);
+                                            indicatorChip.TiedToOut1Chip = null;
+                                        }
+                                    }
+                                }
                                 if (chipToIn.TiedToIn1Chip != null) chipToIn.TiedToIn1Chip.ClearBindings(chipToIn);
                                 if (chipToIn.TiedToIn2Chip != null) chipToIn.TiedToIn2Chip.ClearBindings(chipToIn);
                                 if (chipToIn.TiedToOut1Chip != null) chipToIn.TiedToOut1Chip.ClearBindings(chipToIn);
