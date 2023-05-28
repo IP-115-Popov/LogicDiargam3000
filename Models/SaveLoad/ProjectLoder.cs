@@ -207,6 +207,9 @@ namespace LogicDiagram3000.Models.SaveLoad
                                 ));
                             if (In1Connector != null)
                             {
+                                //Restore Muve connect
+                                chip.MarginHandlerNotify += In1Connector.ChangeEndPoint;
+                                //Restore Logic
                                 chip.TiedToIn1Chip = In1Connector;
                                 In1Connector.TiedToOut1Chip = chip;
                             }                            
@@ -223,6 +226,9 @@ namespace LogicDiagram3000.Models.SaveLoad
                                 ));
                             if (In2Connector != null)
                             {
+                                //Restore Muve connect
+                                chip.MarginHandlerNotify += In2Connector.ChangeEndPoint;
+                                //Restore Logic
                                 chip.TiedToIn2Chip = In2Connector;
                                 In2Connector.TiedToOut1Chip = chip;
                             }
@@ -240,9 +246,31 @@ namespace LogicDiagram3000.Models.SaveLoad
                                 ));
                             if (Out1Connector != null)
                             {
+                                //Restore Muve connect
+                                chip.MarginHandlerNotify += Out1Connector.ChangeStartPoint;
+                                //Restore Logic
                                 chip.TiedToOut1Chip = Out1Connector;
                                 Out1Connector.TiedToIn1Chip = chip;
                             }
+                            if (chip is DemultiplexerChip demultiplexerChip)
+                            {
+                                Connector Out2Connector = (Connector)((scheme.CanvasList).FirstOrDefault(
+                                x =>
+                                {
+                                    if (x is Connector connector)
+                                    {
+                                        if (connector.Id == demultiplexerChip.IdOut2)
+                                            return true;
+                                    }
+                                    return false;
+                                }
+                                ));
+                                if (Out2Connector != null)
+                                {
+                                    demultiplexerChip.TiedToOut2Chip = Out2Connector;
+                                    Out2Connector.TiedToIn1Chip = demultiplexerChip;
+                                }
+                            }    
                         }
                     }
                 }
